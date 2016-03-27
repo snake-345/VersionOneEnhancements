@@ -9,8 +9,7 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 * And you can disable any option in extension settings.
 
 ## How to use
-1. Download VersionOneEnhancements.crx
-2. Go to Settings->Extensions in your chrome
-3. Drag'n'drop .crx file to this tab.
+1. Go to https://chrome.google.com/webstore/detail/gmblpbbcppfbfcoppndaonablghmoodi/
+2. Click to install
 4. Agree installation
 5. Profit
