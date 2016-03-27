@@ -12,8 +12,16 @@
 	},
 
 	"permissions": [
-		"https://www8.v1host.com/*"
+		"https://www8.v1host.com/*",
+		"storage"
 	],
+
+	"externally_connectable": {
+		"ids": [
+			"*"
+		],
+		"matches": ["*://www8.v1host.com/*"]
+	},
 
 	"content_scripts": [
 		{
@@ -29,5 +37,7 @@
 	"browser_action": {
 		"default_title": "Заменяет wysiwyg в v1",
 		"default_icon": "48x48.png"
-	}
+	},
+
+	"options_page": "options.html"
 }

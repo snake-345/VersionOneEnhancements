@@ -27,5 +27,17 @@ promise.then(function() {
 			script.setAttribute("type", "text/javascript");
 			script.innerHTML = response;
 			document.head.appendChild(script);
+
+			chrome.storage.sync.get({
+				replaceTinyMCE: true,
+				typography: true,
+				expand: true,
+				myWorkEnhancement: true
+			}, function(items) {
+				var customEvent = new CustomEvent('sendOptions', {
+					detail: items
+				});
+				window.dispatchEvent(customEvent);
+			});
 		});
 });
