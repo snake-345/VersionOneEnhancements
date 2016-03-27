@@ -11,5 +11,5 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 ## How to use
 1. Go to https://chrome.google.com/webstore/detail/gmblpbbcppfbfcoppndaonablghmoodi/
 2. Click to install
-4. Agree installation
-5. Profit
+3. Agree installation
+4. Profit
