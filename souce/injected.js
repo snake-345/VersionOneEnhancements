@@ -9,7 +9,6 @@
 	});
 
 	promise.then(function(options) {
-		console.log(options);
 		if (options.replaceTinyMCE)
 			replaceTinyMCE();
 		if (options.expand)
@@ -31,7 +30,7 @@
 
 				CKEDITOR.replace(textarea, {
 					filebrowserImageUploadUrl: uploadUrl,
-					extraPlugins: 'simpleuploads',
+					extraPlugins: 'simpleuploads,justify',
 					on: {
 						change: function() {
 							this.updateElement();
@@ -55,8 +54,23 @@
 						}
 					},
 					simpleuploads_inputname: 'image',
-					removeButtons: 'addFile,Styles,about,Source',
-					removePlugins: 'image,blockquote,Styles,about,Source'
+					toolbarGroups: [
+						{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+						{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+						{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+						{ name: 'forms', groups: [ 'forms' ] },
+						{ name: 'links', groups: [ 'links' ] },
+						{ name: 'insert', groups: [ 'insert', 'addImage' ] },
+						{ name: 'tools', groups: [ 'tools' ] },
+						'/',
+						{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+						{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+						{ name: 'styles', groups: [ 'styles' ] },
+						{ name: 'others', groups: [ 'others' ] },
+						{ name: 'about', groups: [ 'about' ] },
+						{ name: 'colors', groups: [ 'colors' ] }
+					],
+					removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Find,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Image,Flash,Smiley,PageBreak,Iframe,ShowBlocks,CreateDiv,BidiRtl,BidiLtr,Language,Styles,Font,FontSize,About,TextColor,BGColor,addFile'
 				});
 			}
 		}
