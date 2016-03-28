@@ -30,6 +30,7 @@ promise.then(function() {
 
 			chrome.storage.sync.get({
 				replaceTinyMCE: true,
+				heightTinyMCE: 400,
 				typography: true,
 				expand: true,
 				myWorkEnhancement: true

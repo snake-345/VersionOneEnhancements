@@ -10,7 +10,7 @@
 
 	promise.then(function(options) {
 		if (options.replaceTinyMCE)
-			replaceTinyMCE();
+			replaceTinyMCE(options);
 		if (options.expand)
 			expandFields();
 		if (options.typography)
@@ -19,7 +19,7 @@
 			myWorkEnhancement();
 	});
 
-	function replaceTinyMCE() {
+	function replaceTinyMCE(options) {
 		if (window.tinyMCE && tinyMCE.editors.length) {
 			var oidToken = tinyMCE.settings.oidToken;
 			var uploadUrl = tinyMCE.settings.postUrl;
@@ -29,6 +29,7 @@
 				tinyMCE.editors[0].destroy();
 
 				CKEDITOR.replace(textarea, {
+					height: options.heightTinyMCE,
 					filebrowserImageUploadUrl: uploadUrl,
 					extraPlugins: 'simpleuploads,justify',
 					on: {
@@ -55,22 +56,21 @@
 					},
 					simpleuploads_inputname: 'image',
 					toolbarGroups: [
-						{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 						{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-						{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-						{ name: 'forms', groups: [ 'forms' ] },
-						{ name: 'links', groups: [ 'links' ] },
-						{ name: 'insert', groups: [ 'insert', 'addImage' ] },
-						{ name: 'tools', groups: [ 'tools' ] },
-						'/',
 						{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 						{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-						{ name: 'styles', groups: [ 'styles' ] },
+						{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+						{ name: 'links', groups: [ 'links' ] },
+						{ name: 'insert', groups: [ 'insert', 'addImage' ] },
+						{ name: 'forms', groups: [ 'forms' ] },
+						{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 						{ name: 'others', groups: [ 'others' ] },
+						{ name: 'styles', groups: [ 'styles' ] },
+						{ name: 'colors', groups: [ 'colors' ] },
 						{ name: 'about', groups: [ 'about' ] },
-						{ name: 'colors', groups: [ 'colors' ] }
+						{ name: 'tools', groups: [ 'tools' ] }
 					],
-					removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Find,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Image,Flash,Smiley,PageBreak,Iframe,ShowBlocks,CreateDiv,BidiRtl,BidiLtr,Language,Styles,Font,FontSize,About,TextColor,BGColor,addFile'
+					removeButtons: 'Subscript,Superscript,Image,Source,Blockquote,Styles,About,addFile'
 				});
 			}
 		}
