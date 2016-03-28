@@ -127,11 +127,15 @@
 		var style = document.createElement('style');
 		style.setAttribute('type', 'text/css');
 		style.innerHTML = `
-			.__in-progress {
+			.__in-progress,
+			.__in-acceptance-testing,
+			.__ready-to-test,
+			.__ready-to-release{
 				background: #FBFBEB !important;
 			}
 
-			.__completed {
+			.__completed,
+			.__released {
 				background: #EDFFEB !important;
 			}
 			
