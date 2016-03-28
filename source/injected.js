@@ -160,7 +160,7 @@
 				var element = $(this).closest('tr[href]');
 				var status = $(this).text().toLowerCase();
 
-				element.addClass('__' + status.replace(' ', '-'));
+				element.addClass('__' + status.replace(/ /g, '-'));
 			});
 		}
 	}
