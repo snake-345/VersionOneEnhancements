@@ -29,9 +29,11 @@
 				tinyMCE.editors[0].destroy();
 
 				CKEDITOR.replace(textarea, {
-					height: options.heightTinyMCE,
+					height: options.minHeightTinyMCE,
+					autoGrow_minHeight: options.minHeightTinyMCE,
+					autoGrow_maxHeight: options.maxHeightTinyMCE,
 					filebrowserImageUploadUrl: uploadUrl,
-					extraPlugins: 'simpleuploads,justify',
+					extraPlugins: 'simpleuploads,justify,autogrow',
 					on: {
 						change: function() {
 							this.updateElement();

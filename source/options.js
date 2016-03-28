@@ -5,7 +5,8 @@
 function save_options() {myWorkEnhancement
 	var options = {
 		replaceTinyMCE: document.getElementById('replaceTinyMCE').checked,
-		heightTinyMCE: +document.getElementById('heightTinyMCE').value,
+		minHeightTinyMCE: +document.getElementById('minHeightTinyMCE').value,
+		maxHeightTinyMCE: +document.getElementById('maxHeightTinyMCE').value,
 		typography: document.getElementById('typography').checked,
 		expand: document.getElementById('expand').checked,
 		myWorkEnhancement: document.getElementById('myWorkEnhancement').checked
@@ -25,13 +26,15 @@ function save_options() {myWorkEnhancement
 function restore_options() {
 	chrome.storage.sync.get({
 		replaceTinyMCE: true,
-		heightTinyMCE: 400,
+		minHeightTinyMCE: 200,
+		maxHeightTinyMCE: 0,
 		typography: true,
 		expand: true,
 		myWorkEnhancement: true
 	}, function(items) {
 		document.getElementById('replaceTinyMCE').checked = items.replaceTinyMCE;
-		document.getElementById('heightTinyMCE').value = items.heightTinyMCE;
+		document.getElementById('minHeightTinyMCE').value = items.minHeightTinyMCE;
+		document.getElementById('maxHeightTinyMCE').value = items.maxHeightTinyMCE;
 		document.getElementById('typography').checked = items.typography;
 		document.getElementById('expand').checked = items.expand;
 		document.getElementById('myWorkEnhancement').checked = items.myWorkEnhancement;
