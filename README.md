@@ -13,3 +13,5 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 2. Click to install
 3. Agree installation
 4. Profit
+
+The best thanks is to put a star on github. =D
