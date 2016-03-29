@@ -1,16 +1,18 @@
 {
-    "content_scripts": [], 
-    "description": "Extension description", 
-    "creator": "Kango", 
-    "background_scripts": [
-        "main.js"
-    ], 
-    "homepage_url": "http://kangoextensions.com/", 
-    "version": "0.9.0", 
-    "browser_button": {
-        "caption": "Kango", 
-        "icon": "icons/button.png", 
-        "tooltipText": "Kango"
-    }, 
-    "name": "VersionOneEnhancements"
+	"content_scripts": [
+		"content.js"
+	],
+	"options_page": "options.html",
+	"description": "The extension that reduces your pain from using VersionOne and makes you happy.",
+	"creator": "Evgeniy Pelmenev aka Snake-345",
+	"background_scripts": [
+		"main.js"
+	],
+	"homepage_url": "https://github.com/snake-345/VersionOneEnhancements",
+	"version": "1.1.0",
+	"browser_button": {
+		"icon": "icons/button.png",
+		"tooltipText": "Click for go to options"
+	},
+	"name": "VersionOneEnhancements"
 }

@@ -1,0 +1,22 @@
+{
+    "content_scripts": [
+        "content.js"
+    ], 
+    "description": "The extension that reduces your pain from using VersionOne and makes you happy.", 
+    "creator": "Evgeniy Pelmenev aka Snake-345", 
+    "framework_version": "1.8.0 3dc957b83b36", 
+    "package_id": "kango-38bcc9da-47e4-4f99-854f-50a634111554", 
+    "background_scripts": [
+        "main.js"
+    ], 
+    "homepage_url": "https://github.com/snake-345/VersionOneEnhancements", 
+    "version": "1.1.0", 
+    "options_page": "options.html", 
+    "framework_package_id": "dev", 
+    "browser_button": {
+        "tooltipText": "Click for go to options", 
+        "icon": "icons/button.png"
+    }, 
+    "id": "{38BCC9DA-47E4-4F99-854F-50A634111554}", 
+    "name": "VersionOneEnhancements"
+}

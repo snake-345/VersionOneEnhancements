@@ -2,7 +2,7 @@
  * Created by snake on 27.03.16.
  */
 // Saves options to chrome.storage
-function save_options() {myWorkEnhancement
+function save_options() {
 	var options = {
 		replaceTinyMCE: document.getElementById('replaceTinyMCE').checked,
 		minHeightTinyMCE: +document.getElementById('minHeightTinyMCE').value,
