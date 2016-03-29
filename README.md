@@ -9,9 +9,12 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 * And you can disable any option in extension settings.
 
 ## How to use
-1. Go to [firefox](https://addons.mozilla.org/RU/firefox/addon/versiononeenhancements/) or [chrome](https://chrome.google.com/webstore/detail/gmblpbbcppfbfcoppndaonablghmoodi/) or [safari]()
+1. Go to [chrome](https://chrome.google.com/webstore/detail/gmblpbbcppfbfcoppndaonablghmoodi/)
 2. Click to install
 3. Agree installation
 4. Profit
+
+## Problems
+Firefox extension will edited and now not worked.
 
 The best thanks is to put a star on github. =D
