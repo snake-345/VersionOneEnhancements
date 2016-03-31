@@ -28,7 +28,7 @@
 					autoGrow_minHeight: options.minHeightTinyMCE,
 					autoGrow_maxHeight: options.maxHeightTinyMCE,
 					filebrowserImageUploadUrl: uploadUrl,
-					extraPlugins: 'simpleuploads,justify,autogrow',
+					extraPlugins: 'simpleuploads,justify,autogrow,keystrokes',
 					on: {
 						change: function() {
 							this.updateElement();
@@ -40,6 +40,8 @@
 									oidToken: oidToken
 								};
 							});
+
+							window.editor = e.editor;
 
 							e.editor.on('simpleuploads.serverResponse', function(ev) {
 								ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];

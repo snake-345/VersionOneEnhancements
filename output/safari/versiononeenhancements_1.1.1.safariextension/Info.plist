@@ -4,8 +4,6 @@
 <dict>
 	<key>Author</key>
 	<string>Evgeniy Pelmenev aka Snake-345</string>
-	<key>Builder Version</key>
-	<string>11601.5.17.1</string>
 	<key>CFBundleDisplayName</key>
 	<string>VersionOneEnhancements</string>
 	<key>CFBundleIdentifier</key>
@@ -13,13 +11,13 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.0</string>
+	<string>1.1.1</string>
 	<key>CFBundleVersion</key>
-	<string>1.1.0</string>
+	<string>1.1.1</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Database Quota</key>
-		<real>10485760</real>
+		<real>10485760.0</real>
 		<key>Global Page</key>
 		<string>background.html</string>
 		<key>Popovers</key>
@@ -68,8 +66,6 @@
 	</dict>
 	<key>Description</key>
 	<string>The extension that reduces your pain from using VersionOne and makes you happy.</string>
-	<key>DeveloperIdentifier</key>
-	<string>0000000000</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
