@@ -1,0 +1,26 @@
+{
+    "web_accessible_resources": [
+        "ckeditor/*", 
+        "injected.js"
+    ], 
+    "description": "The extension that reduces your pain from using VersionOne and makes you happy.", 
+    "content_scripts": [
+        "content.js"
+    ], 
+    "creator": "Evgeniy Pelmenev aka Snake-345", 
+    "framework_version": "1.8.0 3dc957b83b36", 
+    "developer_id": "YOUR_SAFARI_DEVELOPER_ID", 
+    "background_scripts": [
+        "main.js"
+    ], 
+    "homepage_url": "https://github.com/snake-345/VersionOneEnhancements", 
+    "version": "1.1.2", 
+    "options_page": "options.html", 
+    "framework_package_id": "dev", 
+    "browser_button": {
+        "tooltipText": "Click for go to options", 
+        "icon": "icons/button.png"
+    }, 
+    "id": "com.kangoextensions.versiononeenhancements", 
+    "name": "VersionOneEnhancements"
+}

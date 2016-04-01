@@ -23,9 +23,6 @@ window.addEventListener('load', function() {
 	};
 	document.head.appendChild(script);
 });
-// window.addEventListener('load', function() {
-// 	injectScript();
-// });
 
 kango.addMessageListener('OptionsToContent', function(event) {
 	kango.storage.setItem('options', event.data);
@@ -55,35 +52,3 @@ function extend(obj, targetObj) {
 
 	return obj;
 }
-
-// promise.then(function() {
-// 	fetch(chrome.extension.getURL('/injected.js'))
-// 		.then(function(response) {
-// 			if (response.status !== 200) {
-// 				console.log('Не загрузился файл injected.js');
-// 				return;
-// 			}
-//
-// 			return response.text();
-// 		})
-// 		.then(function(response) {
-// 			var script = document.createElement("script");
-// 			script.setAttribute("type", "text/javascript");
-// 			script.innerHTML = response;
-// 			document.head.appendChild(script);
-//
-// 			chrome.storage.sync.get({
-// 				replaceTinyMCE: true,
-// 				minHeightTinyMCE: 200,
-// 				maxHeightTinyMCE: 0,
-// 				typography: true,
-// 				expand: true,
-// 				myWorkEnhancement: true
-// 			}, function(items) {
-// 				var customEvent = new CustomEvent('sendOptions', {
-// 					detail: items
-// 				});
-// 				window.dispatchEvent(customEvent);
-// 			});
-// 		});
-// });
