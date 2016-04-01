@@ -9,6 +9,7 @@
     ], 
     "creator": "Evgeniy Pelmenev aka Snake-345", 
     "framework_version": "1.8.0 3dc957b83b36", 
+    "developer_id": "YOUR_SAFARI_DEVELOPER_ID", 
     "background_scripts": [
         "main.js"
     ], 
@@ -20,6 +21,6 @@
         "tooltipText": "Click for go to options", 
         "icon": "icons/button.png"
     }, 
-    "id": "najmgihpdepdamjpmohmiiogahbenppl", 
+    "id": "com.kangoextensions.versiononeenhancements", 
     "name": "VersionOneEnhancements"
 }
