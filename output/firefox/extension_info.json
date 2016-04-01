@@ -1,8 +1,12 @@
 {
+    "web_accessible_resources": [
+        "ckeditor/*", 
+        "injected.js"
+    ], 
+    "description": "The extension that reduces your pain from using VersionOne and makes you happy.", 
     "content_scripts": [
         "content.js"
     ], 
-    "description": "The extension that reduces your pain from using VersionOne and makes you happy.", 
     "creator": "Evgeniy Pelmenev aka Snake-345", 
     "framework_version": "1.8.0 3dc957b83b36", 
     "package_id": "kango-38bcc9da-47e4-4f99-854f-50a634111554", 

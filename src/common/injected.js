@@ -4,8 +4,13 @@
 	});
 
 	function init(options) {
-		if (options.replaceTinyMCE)
-			replaceTinyMCE(options);
+		if (options.replaceTinyMCE && window.tinyMCE && tinyMCE.editors.length)
+			var interval = setInterval(function() {
+				if (CKEDITOR.status === 'loaded') {
+					clearInterval(interval);
+					replaceTinyMCE(options);
+				}
+			}, 100);
 		if (options.expand)
 			expandFields();
 		if (options.typography)
@@ -15,63 +20,61 @@
 	}
 
 	function replaceTinyMCE(options) {
-		if (window.tinyMCE && tinyMCE.editors.length) {
-			var oidToken = tinyMCE.settings.oidToken;
-			var uploadUrl = tinyMCE.settings.postUrl;
+		var oidToken = tinyMCE.settings.oidToken;
+		var uploadUrl = tinyMCE.settings.postUrl;
 
-			for (var i = 0, l = tinyMCE.editors.length; i < l; i++) {
-				var textarea = tinyMCE.editors[0].getElement();
-				tinyMCE.editors[0].destroy();
+		for (var i = 0, l = tinyMCE.editors.length; i < l; i++) {
+			var textarea = tinyMCE.editors[0].getElement();
+			tinyMCE.editors[0].destroy();
 
-				CKEDITOR.replace(textarea, {
-					height: options.minHeightTinyMCE,
-					autoGrow_minHeight: options.minHeightTinyMCE,
-					autoGrow_maxHeight: options.maxHeightTinyMCE,
-					filebrowserImageUploadUrl: uploadUrl,
-					extraPlugins: 'simpleuploads,justify,autogrow,keystrokes',
-					on: {
-						change: function() {
+			CKEDITOR.replace(textarea, {
+				height: options.minHeightTinyMCE,
+				autoGrow_minHeight: options.minHeightTinyMCE,
+				autoGrow_maxHeight: options.maxHeightTinyMCE,
+				filebrowserImageUploadUrl: uploadUrl,
+				extraPlugins: 'simpleuploads,justify,autogrow,keystrokes',
+				on: {
+					change: function() {
+						this.updateElement();
+						V1.Html.Event.Fire(this.element.$, "change");
+					},
+					instanceReady: function(e) {
+						e.editor.on( 'simpleuploads.startUpload' , function(ev) {
+							ev.data.extraFields = {
+								oidToken: oidToken
+							};
+						});
+
+						window.editor = e.editor;
+
+						e.editor.on('simpleuploads.serverResponse', function(ev) {
+							ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
+						});
+
+						e.editor.on('simpleuploads.finishedUpload', function() {
 							this.updateElement();
 							V1.Html.Event.Fire(this.element.$, "change");
-						},
-						instanceReady: function(e) {
-							e.editor.on( 'simpleuploads.startUpload' , function(ev) {
-								ev.data.extraFields = {
-									oidToken: oidToken
-								};
-							});
-
-							window.editor = e.editor;
-
-							e.editor.on('simpleuploads.serverResponse', function(ev) {
-								ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
-							});
-
-							e.editor.on('simpleuploads.finishedUpload', function() {
-								this.updateElement();
-								V1.Html.Event.Fire(this.element.$, "change");
-							});
-						}
-					},
-					simpleuploads_inputname: 'image',
-					toolbarGroups: [
-						{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-						{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-						{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-						{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-						{ name: 'links', groups: [ 'links' ] },
-						{ name: 'insert', groups: [ 'insert', 'addImage' ] },
-						{ name: 'forms', groups: [ 'forms' ] },
-						{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-						{ name: 'others', groups: [ 'others' ] },
-						{ name: 'styles', groups: [ 'styles' ] },
-						{ name: 'colors', groups: [ 'colors' ] },
-						{ name: 'about', groups: [ 'about' ] },
-						{ name: 'tools', groups: [ 'tools' ] }
-					],
-					removeButtons: 'Subscript,Superscript,Image,Source,Blockquote,Styles,About,addFile'
-				});
-			}
+						});
+					}
+				},
+				simpleuploads_inputname: 'image',
+				toolbarGroups: [
+					{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+					{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+					{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+					{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+					{ name: 'links', groups: [ 'links' ] },
+					{ name: 'insert', groups: [ 'insert', 'addImage' ] },
+					{ name: 'forms', groups: [ 'forms' ] },
+					{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+					{ name: 'others', groups: [ 'others' ] },
+					{ name: 'styles', groups: [ 'styles' ] },
+					{ name: 'colors', groups: [ 'colors' ] },
+					{ name: 'about', groups: [ 'about' ] },
+					{ name: 'tools', groups: [ 'tools' ] }
+				],
+				removeButtons: 'Subscript,Superscript,Image,Source,Blockquote,Styles,About,addFile'
+			});
 		}
 	}
 

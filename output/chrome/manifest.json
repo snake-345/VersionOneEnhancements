@@ -19,9 +19,8 @@
         "16": "icons/button.png"
     }, 
     "web_accessible_resources": [
-        "res/*", 
-        "assets/*", 
-        "icons/*"
+        "ckeditor/*", 
+        "injected.js"
     ], 
     "description": "The extension that reduces your pain from using VersionOne and makes you happy.", 
     "background": {

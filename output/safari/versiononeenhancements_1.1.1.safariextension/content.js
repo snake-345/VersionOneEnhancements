@@ -9,36 +9,41 @@ var defaultOptions = {
 	expand: true,
 	myWorkEnhancement: true
 };
-var script = document.createElement("script");
-script.setAttribute("type", "text/javascript");
-script.setAttribute("src", "//gsnake.s3-eu-west-1.amazonaws.com/ckeditor_sheet/ckeditor.js");
-script.onload = function() {
-	injectScript();
-};
-document.head.appendChild(script);
+
+window.addEventListener('load', function() {
+	var script = document.createElement("script");
+	script.setAttribute("type", "text/javascript");
+	script.setAttribute("src", kango.io.getResourceUrl('ckeditor/ckeditor.js'));
+	script.onload = function () {
+		var customEvent = new CustomEvent('sendBaseUrl', {
+			detail: kango.io.getResourceUrl('ckeditor/')
+		});
+		window.dispatchEvent(customEvent);
+		injectScript();
+	};
+	document.head.appendChild(script);
+});
+// window.addEventListener('load', function() {
+// 	injectScript();
+// });
 
 kango.addMessageListener('OptionsToContent', function(event) {
 	kango.storage.setItem('options', event.data);
 });
 
 function injectScript() {
-	kango.xhr.send({
-		url: 'injected.js',
-		method: 'GET',
-		async: true,
-		contentType: 'text'
-	}, function(data) {
-		var script = document.createElement("script");
-		var options = kango.storage.getItem('options');
-		script.setAttribute("type", "text/javascript");
-		script.innerHTML = data.response;
-		document.head.appendChild(script);
-
+	var script = document.createElement("script");
+	var options = kango.storage.getItem('options');
+	script.setAttribute("type", "text/javascript");
+	script.setAttribute("src", kango.io.getResourceUrl('injected.js'));
+	script.onload = function() {
 		var customEvent = new CustomEvent('sendOptions', {
 			detail: extend(defaultOptions, options ? options : {})
 		});
 		window.dispatchEvent(customEvent);
-	})
+	};
+
+	document.head.appendChild(script);
 }
 
 function extend(obj, targetObj) {
