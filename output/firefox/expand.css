@@ -1,0 +1,7 @@
+.expander {
+	display: none !important;
+}
+
+.collapsed-text {
+	max-height: none !important;
+}

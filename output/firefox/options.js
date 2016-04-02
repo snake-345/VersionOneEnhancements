@@ -1,8 +1,8 @@
 KangoAPI.onReady(function() {
 	var defaultOptions = {
-		replaceTinyMCE: true,
-		minHeightTinyMCE: 200,
-		maxHeightTinyMCE: 0,
+		replaceWysiwyg: true,
+		minHeightWysiwyg: 200,
+		maxHeightWysiwyg: 0,
 		typography: true,
 		expand: true,
 		myWorkEnhancement: true
@@ -15,9 +15,9 @@ KangoAPI.onReady(function() {
 	function save_options() {
 		var status = document.getElementById('status');
 		var options = {
-			replaceTinyMCE: document.getElementById('replaceTinyMCE').checked,
-			minHeightTinyMCE: +document.getElementById('minHeightTinyMCE').value,
-			maxHeightTinyMCE: +document.getElementById('maxHeightTinyMCE').value,
+			replaceWysiwyg: document.getElementById('replaceWysiwyg').checked,
+			minHeightWysiwyg: +document.getElementById('minHeightWysiwyg').value,
+			maxHeightWysiwyg: +document.getElementById('maxHeightWysiwyg').value,
 			typography: document.getElementById('typography').checked,
 			expand: document.getElementById('expand').checked,
 			myWorkEnhancement: document.getElementById('myWorkEnhancement').checked
@@ -42,9 +42,9 @@ KangoAPI.onReady(function() {
 		var options = kango.storage.getItem('options');
 		options = extend(defaultOptions, options ? options : {});
 
-		document.getElementById('replaceTinyMCE').checked = options.replaceTinyMCE;
-		document.getElementById('minHeightTinyMCE').value = options.minHeightTinyMCE;
-		document.getElementById('maxHeightTinyMCE').value = options.maxHeightTinyMCE;
+		document.getElementById('replaceWysiwyg').checked = options.replaceWysiwyg;
+		document.getElementById('minHeightWysiwyg').value = options.minHeightWysiwyg;
+		document.getElementById('maxHeightWysiwyg').value = options.maxHeightWysiwyg;
 		document.getElementById('typography').checked = options.typography;
 		document.getElementById('expand').checked = options.expand;
 		document.getElementById('myWorkEnhancement').checked = options.myWorkEnhancement;

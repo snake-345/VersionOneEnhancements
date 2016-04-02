@@ -1,0 +1,22 @@
+.rich-text h1,
+.rich-text h2,
+.rich-text h3,
+.rich-text h4,
+.rich-text h5,
+.rich-text h6 {
+	font-weight: bold;
+}
+
+.rich-text {
+	font-size: 15px;
+	line-height: 1.4;
+	max-width: 1100px !important;
+	margin: 0 auto !important;
+	border: 0 !important;
+	padding-left: 0 !important;
+}
+
+.rich-text p {
+	margin: 10px 0;
+	line-height: inherit !important;
+}

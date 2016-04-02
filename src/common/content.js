@@ -1,46 +1,49 @@
 // ==UserScript==
 // @include *://*.v1host.com/*
+// @require injectHelpers.js
 // ==/UserScript==
 var defaultOptions = {
-	replaceTinyMCE: true,
-	minHeightTinyMCE: 200,
-	maxHeightTinyMCE: 0,
+	replaceWysiwyg: true,
+	minHeightWysiwyg: 200,
+	maxHeightWysiwyg: 0,
 	typography: true,
 	expand: true,
 	myWorkEnhancement: true
 };
-
-window.addEventListener('load', function() {
-	var script = document.createElement("script");
-	script.setAttribute("type", "text/javascript");
-	script.setAttribute("src", kango.io.getResourceUrl('ckeditor/ckeditor.js'));
-	script.onload = function () {
-		var customEvent = new CustomEvent('sendBaseUrl', {
-			detail: kango.io.getResourceUrl('ckeditor/')
-		});
-		window.dispatchEvent(customEvent);
-		injectScript();
-	};
-	document.head.appendChild(script);
-});
+var options;
 
 kango.addMessageListener('OptionsToContent', function(event) {
 	kango.storage.setItem('options', event.data);
 });
 
-function injectScript() {
-	var script = document.createElement("script");
-	var options = kango.storage.getItem('options');
-	script.setAttribute("type", "text/javascript");
-	script.setAttribute("src", kango.io.getResourceUrl('injected.js'));
-	script.onload = function() {
-		var customEvent = new CustomEvent('sendOptions', {
-			detail: extend(defaultOptions, options ? options : {})
-		});
-		window.dispatchEvent(customEvent);
-	};
 
-	document.head.appendChild(script);
+options = kango.storage.getItem('options');
+options = extend(defaultOptions, options ? options : {});
+options.baseUrl = kango.io.getResourceUrl('content.js').replace('content.js', '');
+
+injectScript(kango.io.getResourceUrl('injectHelpers.js'), function() {
+	if (options.replaceWysiwyg) {
+		injectScript(kango.io.getResourceUrl('replaceWysiwyg.js'), sentOptions);
+	}
+
+	if (options.typography) {
+		injectStyle(kango.io.getResourceUrl('typography.css'));
+	}
+
+	if (options.expand) {
+		injectStyle(kango.io.getResourceUrl('expand.css'));
+	}
+
+	if (options.myWorkEnhancement) {
+		injectScript(kango.io.getResourceUrl('myWork.js'), sentOptions);
+	}
+});
+
+function sentOptions() {
+	var customEvent = new CustomEvent('SentOptions', {
+		detail: options
+	});
+	window.dispatchEvent(customEvent);
 }
 
 function extend(obj, targetObj) {
