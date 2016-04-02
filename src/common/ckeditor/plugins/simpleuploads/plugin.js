@@ -1585,7 +1585,7 @@ https://bugzilla.mozilla.org/show_bug.cgi?id=454832
 		data.xhr = xhr;
 
 		// Upload the file
-		xhr.open('POST', data.url );
+		xhr.open('POST', data.url, true);
 		xhr.onload = function() {
 			var id = data.id,
 				el = editor.document.getById( id ),
@@ -1746,7 +1746,7 @@ https://bugzilla.mozilla.org/show_bug.cgi?id=454832
 		};
 
 		// CORS https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS
-		// xhr.withCredentials = true;
+		xhr.withCredentials = true;
 
 		return xhr;
 	}
@@ -1797,9 +1797,7 @@ https://bugzilla.mozilla.org/show_bug.cgi?id=454832
 				}
 			}
 		}
-		window.setTimeout(function() {
-			xhr.send( formdata );
-		}, 0);
+		xhr.send( formdata );
 	}
 
 	function sendBase64File(data, xhr, inputName) {
@@ -1832,9 +1830,7 @@ https://bugzilla.mozilla.org/show_bug.cgi?id=454832
 		var ui8a = new Uint8Array(bufferData, 0);
 		for (var i = 0; i < req.length; i++)
 			ui8a[i] = req.charCodeAt(i) & 0xff;
-		window.setTimeout(function() {
-			xhr.send(ui8a);
-		}, 0);
+		xhr.send(ui8a);
 	}
 
 	function updateProgress(editor, id, evt) {

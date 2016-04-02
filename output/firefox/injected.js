@@ -31,8 +31,9 @@
 				height: options.minHeightTinyMCE,
 				autoGrow_minHeight: options.minHeightTinyMCE,
 				autoGrow_maxHeight: options.maxHeightTinyMCE,
+				filebrowserUploadUrl: uploadUrl,
 				filebrowserImageUploadUrl: uploadUrl,
-				extraPlugins: 'simpleuploads,justify,autogrow,keystrokes',
+				extraPlugins: 'simpleuploads,justify,autogrow,keystrokes,notification',
 				on: {
 					change: function() {
 						this.updateElement();

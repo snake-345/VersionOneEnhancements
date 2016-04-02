@@ -22,7 +22,7 @@ window.addEventListener('load', function() {
 		injectScript();
 	};
 	document.head.appendChild(script);
-});
+});п ы
 
 kango.addMessageListener('OptionsToContent', function(event) {
 	kango.storage.setItem('options', event.data);
