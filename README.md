@@ -4,6 +4,7 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 ## Features
 * Replace wysiwyg to CKEditor.
   * Shortcuts for h1 - h6: CTRL+1 - CTRL+6 or CMD+1 - CMD+6
+  * Paste image from clipboard, drag'n'drop and by button.
 * Expand collapse field. Now you can see most important info instantly.
 * Improved typography. Now your eyes cease to flow out when you read the story.
 * Improved "My Work" page. Just added some colors for different statuses.
