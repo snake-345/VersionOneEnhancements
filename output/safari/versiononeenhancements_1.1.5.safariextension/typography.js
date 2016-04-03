@@ -23,6 +23,6 @@
 	typographyEnhancement();
 
 	function typographyEnhancement() {
-		console.log($('.rich-text'));
+		$('.rich-text p').filter(function() {return $(this).html() === '&nbsp;'}).addClass('hide');
 	}
 })();

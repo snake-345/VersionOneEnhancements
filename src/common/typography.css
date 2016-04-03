@@ -16,6 +16,10 @@
 	padding-left: 0 !important;
 }
 
+.rich-text .hide {
+	display: none !important;
+}
+
 .rich-text p {
 	margin: 10px 0;
 	line-height: inherit !important;
