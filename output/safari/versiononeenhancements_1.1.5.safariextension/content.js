@@ -27,7 +27,7 @@ injectScript(kango.io.getResourceUrl('injectHelpers.js'), function() {
 	}
 
 	if (options.typography) {
-		injectStyle(kango.io.getResourceUrl('typography.css'));
+		injectScript(kango.io.getResourceUrl('typography.js'), sentOptions);
 	}
 
 	if (options.expand) {
