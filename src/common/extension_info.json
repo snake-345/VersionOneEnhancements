@@ -9,7 +9,7 @@
 		"main.js"
 	],
 	"homepage_url": "https://github.com/snake-345/VersionOneEnhancements",
-	"version": "1.1.6",
+	"version": "1.1.7",
 	"browser_button": {
 		"icon": "icons/button.png",
 		"tooltipText": "Click for go to options"
