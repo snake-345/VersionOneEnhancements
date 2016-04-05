@@ -1,4 +1,5 @@
 KangoAPI.onReady(function() {
+	// TODO: add option removeTags
 	var defaultOptions = {
 		replaceWysiwyg: true,
 		minHeightWysiwyg: 200,

@@ -24,5 +24,12 @@
 
 	function typographyEnhancement() {
 		$('.rich-text p').filter(function() {return $(this).html() === '&nbsp;'}).addClass('hide');
+		$('.rich-text br').filter(checkExtraBr).addClass('hide');
+	}
+
+	function checkExtraBr() {
+		return this.nextSibling.nodeType === 3 &&                            // if nextSibling is text
+			/^\r|\n$/.test(this.nextSibling.textContent) &&                  // if nextSibling is \r or \n
+			this.nextSibling.nextSibling.nodeName.toLowerCase() === 'br';    // if br after br
 	}
 })();
