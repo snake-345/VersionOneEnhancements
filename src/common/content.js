@@ -7,6 +7,7 @@ var defaultOptions = {
 	minHeightWysiwyg: 200,
 	maxHeightWysiwyg: 0,
 	typography: true,
+	removeExtraTags: true,
 	expand: true,
 	myWorkEnhancement: true
 };

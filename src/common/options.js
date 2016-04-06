@@ -1,10 +1,10 @@
 KangoAPI.onReady(function() {
-	// TODO: add option removeTags
 	var defaultOptions = {
 		replaceWysiwyg: true,
 		minHeightWysiwyg: 200,
 		maxHeightWysiwyg: 0,
 		typography: true,
+		removeExtraTags: true,
 		expand: true,
 		myWorkEnhancement: true
 	};
@@ -20,6 +20,7 @@ KangoAPI.onReady(function() {
 			minHeightWysiwyg: +document.getElementById('minHeightWysiwyg').value,
 			maxHeightWysiwyg: +document.getElementById('maxHeightWysiwyg').value,
 			typography: document.getElementById('typography').checked,
+			removeExtraTags: document.getElementById('removeExtraTags').checked,
 			expand: document.getElementById('expand').checked,
 			myWorkEnhancement: document.getElementById('myWorkEnhancement').checked
 		};
@@ -47,6 +48,7 @@ KangoAPI.onReady(function() {
 		document.getElementById('minHeightWysiwyg').value = options.minHeightWysiwyg;
 		document.getElementById('maxHeightWysiwyg').value = options.maxHeightWysiwyg;
 		document.getElementById('typography').checked = options.typography;
+		document.getElementById('removeExtraTags').checked = options.removeExtraTags;
 		document.getElementById('expand').checked = options.expand;
 		document.getElementById('myWorkEnhancement').checked = options.myWorkEnhancement;
 	}

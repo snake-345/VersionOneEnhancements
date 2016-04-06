@@ -1,7 +1,9 @@
 (function() {
+	var options;
+
 	window.addEventListener('SentOptions', function(event) {
 		options = event.detail;
-
+		typographyEnhancement();
 		injectStyle(options.baseUrl + 'typography.css');
 	});
 
@@ -20,11 +22,11 @@
 		isOpenLightbox = true;
 	};
 
-	typographyEnhancement();
-
 	function typographyEnhancement() {
-		$('.rich-text p').filter(function() {return $(this).html() === '&nbsp;'}).addClass('hide');
-		$('.rich-text br').filter(checkExtraBr).addClass('hide');
+		if (options.removeExtraTags) {
+			$('.rich-text p').filter(function () {return $(this).html() === '&nbsp;'}).addClass('hide');
+			$('.rich-text br').filter(checkExtraBr).addClass('hide');
+		}
 	}
 
 	function checkExtraBr() {
