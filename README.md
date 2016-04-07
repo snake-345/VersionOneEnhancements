@@ -19,5 +19,17 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 ## Safari extension
 Sorry safari extension you may install only manualy, because for publish to extensions.apple.com i need apple developer account which costs 100$ in year. It free extension and i not want pay 100$ in year)
 
+### How install manualy to safari
+1. Go to Safari preferences
+2. Go to advanced tab
+3. Check "Show develop menu in bar
+4. Close preferences and go to Develop -> Extension builder
+5. Click on plus button and choice add extension
+6. Browse extension in our file system
+7. After click on install button
+8. That's all. Too difficult, yeah?) 
+
+You should done this every time you restart your browser. It's safari, sorry.
+
 ## If you use it
 The best thanks is to put a star on github. =D
