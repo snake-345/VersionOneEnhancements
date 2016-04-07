@@ -17,7 +17,7 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 4. Profit
 
 ## Safari extension
-Sorry safari extension you may install only manually, because for publish to extensions.apple.com i need apple developer account which costs 100$ in year. It free extension and i not want pay 100$ in year)
+Sorry safari extension you may install only manually, because for publish to extensions.apple.com i need apple developer account which costs 100$ in year. It's free extension and i not want pay 100$ in year)
 
 ### How install manually to safari
 1. Go to Safari preferences
