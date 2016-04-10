@@ -7,6 +7,9 @@ The extension that reduces your pain from using VersionOne and makes you happy.
   * Paste image from clipboard, drag'n'drop or use button to upload.
 * Important fields are now expanded by default.
 * Improved typography. Eye-devastating layout is no more.
+  * Increase font-size.
+  * Add margins.
+  * Removes extra tags (empty <p> and double <br>).
 * Improved "My Work" page. Just added some colors for different statuses.
 * And you can disable any option in extension settings.
 
