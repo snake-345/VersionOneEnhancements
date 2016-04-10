@@ -9,7 +9,7 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 * Improved typography. Eye-devastating layout is no more.
   * Increase font-size.
   * Add margins.
-  * Removes extra tags (empty <p> and double <br>).
+  * Removes extra tags (empty &lt;p&gt; and double &lt;br&gt;).
 * Improved "My Work" page. Just added some colors for different statuses.
 * And you can disable any option in extension settings.
 
