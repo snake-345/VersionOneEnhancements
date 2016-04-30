@@ -7,12 +7,12 @@
         "content.js"
     ], 
     "creator": "Evgeniy Pelmenev aka Snake-345", 
-    "framework_version": "1.8.0 3dc957b83b36", 
+    "framework_version": "1.7.9 e39b6ff2fcc8", 
     "background_scripts": [
         "main.js"
     ], 
     "homepage_url": "https://github.com/snake-345/VersionOneEnhancements", 
-    "version": "1.2.0", 
+    "version": "1.2.1", 
     "options_page": "options.html", 
     "framework_package_id": "dev", 
     "browser_button": {

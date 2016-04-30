@@ -2,12 +2,12 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>{38BCC9DA-47E4-4F99-854F-50A634111554}</em:id>
         <em:name>VersionOneEnhancements</em:name>
-        <em:version>1.2.0</em:version>
+        <em:version>1.2.1</em:version>
         <em:targetApplication>
             <Description>
                 <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-                <em:minVersion>38.0</em:minVersion>
-                <em:maxVersion>45.*</em:maxVersion>
+                <em:minVersion>17.0</em:minVersion>
+                <em:maxVersion>41.*</em:maxVersion>
             </Description>
         </em:targetApplication>
         <em:bootstrap>true</em:bootstrap>

@@ -26,7 +26,7 @@
         "page": "background.html"
     }, 
     "homepage_url": "https://github.com/snake-345/VersionOneEnhancements", 
-    "version": "1.2.0", 
+    "version": "1.2.1", 
     "options_page": "options.html", 
     "manifest_version": 2, 
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'", 
