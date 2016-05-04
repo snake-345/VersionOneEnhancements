@@ -30,8 +30,10 @@
 	}
 
 	function checkExtraBr() {
-		return this.nextSibling.nodeType === 3 &&                            // if nextSibling is text
+		return this.nextSibling &&
+			this.nextSibling.nodeType === 3 &&                               // if nextSibling is text
 			/^\r|\n$/.test(this.nextSibling.textContent) &&                  // if nextSibling is \r or \n
+			this.nextSibling.nextSibling &&
 			this.nextSibling.nextSibling.nodeName.toLowerCase() === 'br';    // if br after br
 	}
 })();
