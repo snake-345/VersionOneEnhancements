@@ -33,6 +33,11 @@
 				autoGrow_maxHeight: options.maxHeightTinyMCE,
 				filebrowserUploadUrl: uploadUrl,
 				filebrowserImageUploadUrl: uploadUrl,
+				coreStyles_strike: {
+					element: 'span',
+					attributes: { 'style': 'text-decoration: line-through;' },
+					overrides: 'strike'
+				},
 				extraPlugins: 'simpleuploads,justify,autogrow,keystrokes,notification',
 				on: {
 					change: function() {
