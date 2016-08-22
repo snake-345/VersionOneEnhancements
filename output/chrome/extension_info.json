@@ -12,7 +12,7 @@
         "main.js"
     ], 
     "homepage_url": "https://github.com/snake-345/VersionOneEnhancements", 
-    "version": "1.2.3", 
+    "version": "1.2.4", 
     "options_page": "options.html", 
     "framework_package_id": "dev", 
     "browser_button": {

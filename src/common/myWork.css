@@ -1,11 +1,11 @@
 .__in-progress,
 .__in-acceptance-testing,
-.__ready-to-test,
-.__ready-to-release{
+.__ready-to-test {
 	background: #FBFBEB !important;
 }
 
 .__completed,
+.__ready-to-release,
 .__released {
 	background: #EDFFEB !important;
 }
