@@ -38,6 +38,14 @@
 					attributes: { 'style': 'text-decoration: line-through;' },
 					overrides: 'strike'
 				},
+				stylesSet: [
+					{ name: 'Red text', element: 'span', styles: { 'color': 'red' } },
+					{ name: 'Blue text', element: 'span', styles: { 'color': 'blue' } },
+					{ name: 'Green text', element: 'span', styles: { 'color': 'green' } },
+					{ name: 'Yellow highlight', element: 'span', styles: { 'background-color': 'yellow' } },
+					{ name: 'Light green highlight', element: 'span', styles: { 'background-color': 'lightgreen' } },
+					{ name: 'Light blue highlight', element: 'span', styles: { 'background-color': 'lightblue' } }
+				],
 				extraPlugins: 'simpleuploads,justify,autogrow,keystrokes,notification',
 				on: {
 					change: function() {
@@ -79,7 +87,7 @@
 					{ name: 'about', groups: [ 'about' ] },
 					{ name: 'tools', groups: [ 'tools' ] }
 				],
-				removeButtons: 'Subscript,Superscript,Image,Source,Blockquote,Styles,About,addFile'
+				removeButtons: 'Subscript,Superscript,Image,Source,Blockquote,About,addFile'
 			});
 		}
 	}
