@@ -1,0 +1,366 @@
+html, body {
+	height: 100%;
+}
+
+.editor-wrapper {
+	margin-right: 400px;
+	height: 100%;
+	overflow: scroll;
+	position: relative;
+	-webkit-transition: margin-right .3s ease;
+	-o-transition: margin-right .3s ease;
+	-moz-transition: margin-right .3s ease;
+	transition: margin-right .3s ease;
+}
+
+.editor {
+	margin-top: 50px;
+	cursor: crosshair;
+}
+
+.editor-panel {
+	text-align: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 400px;
+	z-index: 100;
+	-webkit-transition: right .3s ease;
+	-o-transition: right .3s ease;
+	-moz-transition: right .3s ease;
+	transition: right .3s ease;
+}
+
+.editor-panel-inner {
+	display: inline-block;
+	box-shadow: 0 0 5px #ccc;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background: #fff;
+	margin-top: 10px;
+	font-size: 0;
+}
+
+.editor-panel .btn {
+	font-size: 15px;
+	padding: 5px 10px;
+	display: inline-block;
+	cursor: pointer;
+	position: relative;
+}
+
+.editor-panel-inner > .btn:first-child {
+	border-radius: 5px 0 0 5px;
+}
+
+.editor-panel-inner > .btn:last-child {
+	border-radius: 0 5px 5px 0;
+}
+
+.editor-panel .btn:hover,
+.editor-panel .btn.active {
+	background: #e6e6e6;
+}
+
+.editor-panel .icon {
+	width: 20px;
+	height: 20px;
+	display: block;
+}
+
+.editor-panel .arrow .icon {
+	transform: rotate(90deg);
+}
+
+.editor-panel .separator {
+	height: 20px;
+	width: 1px;
+	background: #ccc;
+	display: inline-block;
+	margin-top: 5px;
+	vertical-align: top;
+}
+
+.editor-panel .btn:hover .dropdown {
+	display: block;
+}
+
+.editor-panel .dropdown {
+	display: none;
+	position: absolute;
+	left: -1px;
+	top: 30px;
+}
+
+.editor-panel .dropdown-inner {
+	box-shadow: 0 0 5px #ccc;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background: #fff;
+	font-size: 0;
+	margin-top: 10px;
+	overflow: hidden;
+}
+
+.editor-panel .color-value {
+	width: 18px;
+	height: 18px;
+	border: 1px solid #ccc;
+}
+
+.editor-panel .color-value.red {
+	background: red;
+}
+
+.editor-panel .color-value.green {
+	background: green;
+}
+
+.editor-panel .color-value.blue {
+	background: blue;
+}
+
+.editor-panel .color-value.yellow {
+	background: yellow;
+}
+
+.editor-panel .color-value.black {
+	background: black;
+}
+
+.editor-panel .line-width-value {
+	width: 40px;
+	position: relative;
+	height: 20px;
+}
+
+.editor-panel .line-width-value:before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 50%;
+	background: #000;
+}
+
+.editor-panel .line-width-value.w2:before {
+	margin-top: -1px;
+	height: 2px;
+}
+
+.editor-panel .line-width-value.w4:before {
+	margin-top: -2px;
+	height: 4px;
+}
+
+.editor-panel .line-width-value.w6:before {
+	margin-top: -3px;
+	height: 6px;
+}
+
+.editor-panel .line-width-value.w8:before {
+	margin-top: -4px;
+	height: 8px;
+}
+
+.create-defect-panel {
+	position: fixed;
+	background: #fff;
+	z-index: 100;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 359px;
+	box-shadow: 0 0 5px #ccc;
+	border-left: 1px solid #ccc;
+	overflow: scroll;
+	padding: 20px;
+	-webkit-transition: right .3s ease;
+	-o-transition: right .3s ease;
+	-moz-transition: right .3s ease;
+	transition: right .3s ease;
+}
+
+.hide-btn {
+	position: fixed;
+	cursor: pointer;
+	top: 10px;
+	right: 398px;
+	background: #fff;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	border-radius: 5px 0 0 5px;
+	border: 1px solid #ccc;
+	box-shadow: 0 0 5px #ccc;
+	z-index: 101;
+	-webkit-transition: right .3s ease;
+	-o-transition: right .3s ease;
+	-moz-transition: right .3s ease;
+	transition: right .3s ease;
+}
+
+.hide-btn:hover {
+	background: #e6e6e6;
+}
+
+.hide-btn:before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 5px;
+	top: -3px;
+	bottom: -3px;
+	left: 100%;
+	background: #fff;
+}
+
+.hide-btn .show {
+	display: none;
+}
+
+.hided-create-defect-panel .create-defect-panel {
+	right: -400px;
+}
+
+.hided-create-defect-panel .editor-wrapper {
+	margin-right: 0;
+}
+
+.hided-create-defect-panel .editor-panel {
+	right: 0;
+}
+
+.hided-create-defect-panel .hide-btn {
+	right: -2px;
+}
+
+.hided-create-defect-panel .hide-btn .show {
+	display: inline;
+}
+
+.hided-create-defect-panel .hide-btn .hide {
+	display: none;
+}
+
+
+
+.create-defect-panel .form-row {
+	margin-bottom: 15px;
+	position: relative;
+}
+
+.create-defect-panel .label {
+	font-weight: bold;
+	margin-bottom: 5px;
+	font-size: 17px;
+}
+
+.create-defect-panel .required {
+	color: red;
+}
+
+.create-defect-panel input,
+.create-defect-panel textarea {
+	box-sizing: border-box;
+	width: 100%;
+	box-shadow: 1px 1px 0 1px #ccc;
+	padding: 5px 10px;
+	font-size: 1rem;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-family: inherit;
+}
+
+.create-defect-panel input:focus,
+.create-defect-panel textarea:focus {
+	border-color: #666;
+	box-shadow: 1px 1px 0 1px #666;
+	outline: none;
+}
+
+.create-defect-panel .custom-select .pseudo-select {
+	position: relative;
+}
+
+.create-defect-panel .custom-select .pseudo-select:before {
+	content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	border-top: 8px solid #666;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 8px solid transparent;
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	margin-top: -4px;
+}
+
+.create-defect-panel .custom-select input {
+	cursor: pointer;
+}
+
+.create-defect-panel .custom-select-dropdown {
+	position: absolute;
+	z-index: 10;
+	background: #fff;
+	border: 1px solid #666;
+	border-top: none;
+	left: 0;
+	right: 0;
+	max-height: 200px;
+	overflow: scroll;
+	box-shadow: 1px 1px 0 1px #666;
+	border-radius: 0 0 5px 5px;
+	display: none;
+	margin-top: -4px;
+	padding-top: 4px;
+}
+
+.create-defect-panel .custom-select-dropdown.show {
+	display: block;
+}
+
+.create-defect-panel .custom-select-dropdown-item {
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.create-defect-panel .custom-select-dropdown-item.level1 {
+	padding-left: 25px;
+}
+
+.create-defect-panel .custom-select-dropdown-item.level2 {
+	padding-left: 40px;
+}
+
+.create-defect-panel .custom-select-dropdown-item.level3 {
+	padding-left: 55px;
+}
+
+.create-defect-panel .custom-select-dropdown-item.level4 {
+	padding-left: 70px;
+}
+
+.create-defect-panel .custom-select-dropdown-item:hover,
+.create-defect-panel .custom-select-dropdown-item.active {
+	background: #e6e6e6;
+}
+
+.create-defect-panel button[type="submit"] {
+	display: inline-block;
+	padding: 5px 10px;
+	font-size: 1rem;
+	background: #fff;
+	border: 1px solid #ccc;
+	box-shadow: 1px 1px 0 1px #ccc;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.create-defect-panel button[type="submit"]:hover {
+	background: #e6e6e6;
+}

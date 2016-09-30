@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Edit</title>
+	<link rel="stylesheet" href="reset.css">
+	<link rel="stylesheet" href="edit.css">
+</head>
+<body>
+	<div class="editor-wrapper">
+		<div class="editor-panel">
+			<div class="editor-panel-inner">
+				<div class="js-editor-action btn move" data-action="move">
+					<img src="icons/move.svg" alt="move" class="icon">
+				</div>
+				<div class="js-editor-action btn active drawing" data-action="drawing">
+					<img src="icons/drawing.svg" alt="free drawing" class="icon">
+				</div>
+				<div class="js-editor-action btn line" data-action="line">
+					<img src="icons/line.svg" alt="line" class="icon">
+				</div>
+				<div class="js-editor-action btn arrow" data-action="arrow">
+					<img src="icons/arrow.svg" alt="arrow" class="icon">
+				</div>
+				<div class="js-editor-action btn rect" data-action="rect">
+					<img src="icons/rect.svg" alt="rectangle" class="icon">
+				</div>
+				<div class="js-editor-action btn ellipse" data-action="ellipse">
+					<img src="icons/ellipse.svg" alt="ellipse" class="icon">
+				</div>
+				<div class="js-editor-action btn text" data-action="text">
+					<img src="icons/text.svg" alt="text" class="icon">
+				</div>
+				<div class="separator"></div>
+				<div class="js-editor-config btn line-width">
+					<div class="line-width-value w4 js-editor-line-width-selected"></div>
+					<div class="dropdown">
+						<div class="dropdown-inner">
+							<div class="btn js-editor-line-width" data-value="2">
+								<div class="line-width-value w2"></div>
+							</div>
+							<div class="btn js-editor-line-width active" data-value="4">
+								<div class="line-width-value w4"></div>
+							</div>
+							<div class="btn js-editor-line-width" data-value="6">
+								<div class="line-width-value w6"></div>
+							</div>
+							<div class="btn js-editor-line-width" data-value="8">
+								<div class="line-width-value w8"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="btn color">
+					<div class="js-editor-color-selected color-value red"></div>
+					<div class="dropdown">
+						<div class="dropdown-inner">
+							<div class="btn js-editor-color active" data-value="red">
+								<div class="color-value red"></div>
+							</div>
+							<div class="btn js-editor-color" data-value="green">
+								<div class="color-value green"></div>
+							</div>
+							<div class="btn js-editor-color" data-value="blue">
+								<div class="color-value blue"></div>
+							</div>
+							<div class="btn js-editor-color" data-value="yellow">
+								<div class="color-value yellow"></div>
+							</div>
+							<div class="btn js-editor-color" data-value="black">
+								<div class="color-value black"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<canvas class="editor" id="editor"></canvas>
+	</div>
+	<div class="hide-btn js-hide-btn">
+		<span class="hide">
+			&gt;&gt;
+		</span>
+		<span class="show">
+			&lt;&lt;
+		</span>
+	</div>
+	<div class="create-defect-panel js-create-defect-panel">
+		<form>
+			<div class="form-row">
+				<div class="label">Title: <span class="required">*</span></div>
+				<input type="text" name="Name" required>
+			</div>
+			<div class="form-row">
+				<div class="js-custom-select custom-select">
+					<div class="label">Project: <span class="required">*</span></div>
+					<div class="pseudo-select">
+						<input type="text" name="Scope" class="custom-select-input" readonly required>
+					</div>
+					<div class="custom-select-dropdown js-custom-select-dropdown js-scope-dropdown"></div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="js-custom-select custom-select">
+					<div class="label">Backlog Group: <span class="required">*</span></div>
+					<div class="pseudo-select">
+						<input type="text" name="Parent" class="custom-select-input" readonly required>
+					</div>
+					<div class="custom-select-dropdown js-custom-select-dropdown js-parent-dropdown"></div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="label">Description:</div>
+				<textarea name="Description" cols="30" rows="5"></textarea>
+			</div>
+			<button type="submit">Create Defect</button>
+		</form>
+	</div>
+	<script type="text/javascript" src="fabric.js"></script>
+	<script type="text/javascript" src="edit.js"></script>
+</body>
+</html>

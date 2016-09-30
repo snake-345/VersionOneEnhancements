@@ -1,0 +1,35 @@
+body {
+	padding: 20px;
+	width: 200px;
+}
+
+p {
+	margin-bottom: 10px;
+}
+
+button {
+	display: inline-block;
+	padding: 5px 10px;
+	font-size: 1rem;
+	background: #fff;
+	border: 1px solid #ccc;
+	box-shadow: 1px 1px 0 1px #ccc;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 200px;
+	text-align: center;
+	outline: none;
+}
+
+button + button {
+	margin-top: 10px;
+}
+
+button:hover {
+	background: #e6e6e6;
+	outline: none;
+}
+
+button:focus {
+	outline: none;
+}
