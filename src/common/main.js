@@ -1,15 +1,42 @@
-﻿function MyExtension() {
-	var self = this;
-	kango.ui.browserButton.addEventListener(kango.ui.browserButton.event.COMMAND, function() {
-		self._onCommand();
+﻿var captured = [];
+
+kango.addMessageListener('cleanCaptured', cleanCaptured);
+kango.addMessageListener('capture', capture);
+kango.addMessageListener('editReady', sendCapture);
+kango.addMessageListener('openEdit', openEdit);
+kango.addMessageListener('openDefectEditing', openDefectEditing);
+
+function cleanCaptured() {
+	captured = [];
+}
+
+function capture(event) {
+	var params = event.data;
+
+	chrome.tabs.captureVisibleTab(null, {format: "png"}, function(data) {
+		captured.push({
+			url: data,
+			params: params
+		});
+
+		kango.browser.tabs.getCurrent(function(tab) {
+			tab.dispatchMessage('captured', null);
+		});
 	});
 }
 
-MyExtension.prototype = {
+function sendCapture() {
+	kango.dispatchMessage('sendCaptured', captured);
+}
 
-	_onCommand: function() {
-		kango.ui.optionsPage.open();
-	}
-};
+function openEdit() {
+	kango.browser.tabs.create({url: 'edit.html'});
+}
 
-var extension = new MyExtension();
+function openDefectEditing(event) {
+	kango.browser.tabs.getCurrent(function(tab) {
+		tab.close();
+	});
+
+	kango.browser.tabs.create({url: event.data});
+}

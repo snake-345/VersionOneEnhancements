@@ -1,6 +1,7 @@
 {
 	"content_scripts": [
-		"content.js"
+		"content.js",
+		"capture.js"
 	],
 	"options_page": "options.html",
 	"description": "The extension that reduces your pain from using VersionOne and makes you happy.",
@@ -12,7 +13,16 @@
 	"version": "1.2.5",
 	"browser_button": {
 		"icon": "icons/button.png",
-		"tooltipText": "Click for go to options"
+		"tooltipText": "Click to popup",
+		"popup": {
+			"url": "popup.html",
+			"width": 240,
+			"height": 220
+		}
+	},
+	"permissions": {
+		"tabs": true,
+		"xhr": ["<all_urls>"]
 	},
 	"name": "VersionOneEnhancements",
 	"web_accessible_resources": [

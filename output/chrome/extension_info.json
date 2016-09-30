@@ -4,7 +4,8 @@
     ], 
     "description": "The extension that reduces your pain from using VersionOne and makes you happy.", 
     "content_scripts": [
-        "content.js"
+        "content.js", 
+        "capture.js"
     ], 
     "creator": "Evgeniy Pelmenev aka Snake-345", 
     "framework_version": "1.7.9 e39b6ff2fcc8", 
@@ -16,7 +17,12 @@
     "options_page": "options.html", 
     "framework_package_id": "dev", 
     "browser_button": {
-        "tooltipText": "Click for go to options", 
+        "tooltipText": "Click to popup", 
+        "popup": {
+            "url": "popup.html", 
+            "width": 300, 
+            "height": 400
+        }, 
         "icon": "icons/button.png"
     }, 
     "id": "najmgihpdepdamjpmohmiiogahbenppl", 

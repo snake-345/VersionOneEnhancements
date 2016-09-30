@@ -17,7 +17,6 @@ kango.addMessageListener('OptionsToContent', function(event) {
 	kango.storage.setItem('options', event.data);
 });
 
-
 options = kango.storage.getItem('options');
 options = extend(defaultOptions, options ? options : {});
 options.baseUrl = kango.io.getResourceUrl('content.js').replace('content.js', '');
