@@ -25,13 +25,7 @@
 			myWorkEnhancement: document.getElementById('myWorkEnhancement').checked
 		};
 
-		localStorage.options = JSON.stringify(options);
-
-		chrome.tabs.query({}, function(tabs) {
-			for (var i = 0; i < tabs.length; i++) {
-				chrome.tabs.sendMessage(tabs[i].id, {action: 'OptionsToContent', data: options});
-			}
-		});
+		chrome.runtime.sendMessage({action: 'saveOptions', data: options});
 
 		status.textContent = 'Options saved.';
 		setTimeout(function () {
@@ -42,7 +36,7 @@
 	// Restores select box and checkbox state using the preferences
 	// stored in chrome.storage.
 	function restore_options() {
-		var options = JSON.parse(localStorage.options);
+		var options = JSON.parse(localStorage.options || '{}');
 		options = extend(defaultOptions, options ? options : {});
 
 		document.getElementById('replaceWysiwyg').checked = options.replaceWysiwyg;
