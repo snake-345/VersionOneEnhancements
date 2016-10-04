@@ -2,6 +2,7 @@
 The extension that reduces your pain from using VersionOne and makes you happy.
 
 ## Features
+* Easy way for adding defects. Just make screenshot, highlight the importance of the screenshot and fill field like title, description. At the moment you can fill only required fields and then you will redirect to versionOne defect editing. In future you will have able fill all fields and create defects without redirect to versionOne editing. 
 * Replaces WYSIWYG with CKEditor.
   * Shortcuts for h1 - h6: CTRL+1 - CTRL+6 or CMD+1 - CMD+6
   * Paste image from clipboard, drag'n'drop or use button to upload.
@@ -20,7 +21,7 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 4. Profit
 
 ## Safari extension
-Safari guys, sorry. You'll have to install this manually. Apple charges $100/yr for dev account which allows to publish on their extensions platform. The extension is free, so I'm not going to buy a dev acc.
+Safari guys, sorry. I deleted safari version and will not support it. Because I 
 
 ### How install manually to safari
 1. Go to Safari preferences
@@ -35,4 +36,4 @@ Safari guys, sorry. You'll have to install this manually. Apple charges $100/yr 
 You should done this every time you restart your browser. It's safari, sorry.
 
 ## If you use it
-The best thanks is to put a star on github. =D
+The best thanks is to put a star on github ... and fill [Hustle card](http://dealersocket.com/hustle) =D
