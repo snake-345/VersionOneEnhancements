@@ -14,6 +14,13 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 * Improved "My Work" page. Just added some colors for different statuses.
 * And you can disable any option in extension settings.
 
+## How create defects.
+* Just make screenshot:
+  ![Make screenshot](https://raw.githubusercontent.com/snake-345/VersionOneEnhancements/master/screenshots/screenshot1.png)
+* Edit screenshot and fill required field.
+  ![Edit screenshot](https://raw.githubusercontent.com/snake-345/VersionOneEnhancements/master/screenshots/screenshot2.png)
+* Click create Defect.
+
 ## How to use
 1. Go to [chrome](https://chrome.google.com/webstore/detail/gmblpbbcppfbfcoppndaonablghmoodi/) or [firefox](https://addons.mozilla.org/ru/firefox/addon/versiononeenhancements/)
 2. Click to install
