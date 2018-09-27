@@ -3,8 +3,8 @@
 
 	window.addEventListener('load', function() {
 		if (window.tinyMCE && tinyMCE.editors.length) {
-			window.CKEDITOR_BASEPATH = options.baseUrl + 'ckeditor/';
-			injectScript(options.baseUrl + 'ckeditor/ckeditor.js', function() {
+			window.CKEDITOR_BASEPATH = options.baseUrl + 'ckeditor4/';
+			injectScript(options.baseUrl + 'ckeditor4/ckeditor.js', function() {
 				var interval = setInterval(function() {
 					if (CKEDITOR.status === 'loaded') {
 						clearInterval(interval);
