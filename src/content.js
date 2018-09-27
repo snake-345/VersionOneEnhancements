@@ -7,6 +7,8 @@ chrome.runtime.onMessage.addListener(function(request) {
 		injectScript(chrome.extension.getURL('injectHelpers.js'), function() {
 			document.querySelector('body').dataset.options = JSON.stringify(options);
 
+			injectScript(chrome.extension.getURL('monkeyPatcher.js'));
+
 			if (options.replaceWysiwyg) {
 				injectScript(chrome.extension.getURL('replaceWysiwyg.js'));
 			}
@@ -25,3 +27,5 @@ chrome.runtime.onMessage.addListener(function(request) {
 		});
 	}
 });
+
+

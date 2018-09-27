@@ -1,22 +1,10 @@
 (function() {
 	var options = JSON.parse(document.querySelector('body').dataset.options);
-	var backupFunc = V1.Html.Window.OpenLightbox;
-	var isOpenLightbox = false;
 
 	typographyEnhancement();
+	document.addEventListener('voe.openLightBox', typographyEnhancement);
+
 	injectStyle(options.baseUrl + 'typography.css');
-
-	$(document).on('ajaxComplete', function() {
-		if (isOpenLightbox) {
-			isOpenLightbox = false;
-			typographyEnhancement();
-		}
-	});
-
-	V1.Html.Window.OpenLightbox = function(a, b) {
-		backupFunc(a, b);
-		isOpenLightbox = true;
-	};
 
 	function typographyEnhancement() {
 		if (options.removeExtraTags) {

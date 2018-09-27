@@ -5,6 +5,8 @@
 		if (window.tinyMCE && tinyMCE.editors.length) {
 			window.CKEDITOR_BASEPATH = options.baseUrl + 'ckeditor4/';
 			injectScript(options.baseUrl + 'ckeditor4/ckeditor.js', function() {
+				CKEDITOR.disableAutoInline = true;
+
 				var interval = setInterval(function() {
 					if (CKEDITOR.status === 'loaded') {
 						clearInterval(interval);
