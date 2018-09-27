@@ -1,7 +1,10 @@
 (function() {
 	var options = JSON.parse(document.querySelector('body').dataset.options);
 
-	window.addEventListener('load', function() {
+	window.addEventListener('load', replaceEditor);
+	document.addEventListener('voe.openLightBox', replaceEditor);
+
+	function replaceEditor() {
 		if (window.tinyMCE && tinyMCE.editors.length) {
 			window.CKEDITOR_BASEPATH = options.baseUrl + 'ckeditor4/';
 			injectScript(options.baseUrl + 'ckeditor4/ckeditor.js', function() {
@@ -15,7 +18,7 @@
 				}, 100);
 			});
 		}
-	});
+	}
 
 	function replace(options) {
 		var oidToken = tinyMCE.settings.oidToken;
