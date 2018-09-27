@@ -82,30 +82,66 @@
 							V1.Topics.Publish('RichText/Blur', {
 								target: { id: this.element.$.id }
 							});
+
+                            $('.main-panel-scroller').off('scroll');
 							// console.log(this.element.$);
 						},
 						change: function () {
-							console.log('on change', this.element.$);
 							// this.updateElement();
 							V1.Html.Event.Fire(this.element.$, "change");
 						},
 						instanceReady: function (e) {
-							e.editor.on('simpleuploads.startUpload', function (ev) {
-								ev.data.extraFields = {
-									oidToken: oidToken
-								};
-							});
+                            var $editor = $(e.editor.element.$);
+                            var $panel = $(document.getElementById('cke_' + $editor.attr('id')));
 
-							window.editor = e.editor;
+                            $panel.css('maxWidth',$editor.outerWidth() + 'px');
 
-							e.editor.on('simpleuploads.serverResponse', function (ev) {
-								ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
-							});
+                            var $scroller = $('.main-panel-scroller');
+                            var panelHeight = $panel.outerHeight();
+                            var editorHeight = $editor.outerHeight();
+                            var scrollerOffset = $scroller.offset().top;
 
-							e.editor.on('simpleuploads.finishedUpload', function () {
-								// this.updateElement();
-								V1.Html.Event.Fire(this.element.$, "change");
-							});
+                            $panel.offset({top: $editor.offset().top - $panel.outerHeight(), left: $editor.offset().left})
+
+                            e.editor.on('focus',function() {
+                                setPanelPosition();
+                                $scroller.on('scroll', function () {
+                                    setPanelPosition();
+                                });
+                            });
+
+                            function setPanelPosition() {
+                                var editorOffset = $editor.offset().top;
+                                var editorOffsetBottom = editorOffset + editorHeight;
+                                var panelOffset = editorOffset - panelHeight;
+
+                                if(panelOffset <= scrollerOffset && editorOffsetBottom >= scrollerOffset) {
+                                    $panel.offset({top: scrollerOffset, left: $editor.offset().left});
+                                    $panel.css('visibility','visible');
+                                } else if(editorOffsetBottom < scrollerOffset) {
+                                    $panel.css('visibility','hidden');
+                                } else {
+                                    $panel.offset({top: panelOffset, left: $editor.offset().left});
+                                    $panel.css('visibility','visible');
+                                }
+                            }
+
+                            window.editor = e.editor;
+
+                            e.editor.on('simpleuploads.startUpload', function (ev) {
+                                ev.data.extraFields = {
+                                    oidToken: oidToken
+                                };
+                            });
+
+                            e.editor.on('simpleuploads.serverResponse', function (ev) {
+                                ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
+                            });
+
+                            e.editor.on('simpleuploads.finishedUpload', function () {
+                                // this.updateElement();
+                                V1.Html.Event.Fire(this.element.$, "change");
+                            });
 						}
 					},
 					simpleuploads_inputname: 'image',
