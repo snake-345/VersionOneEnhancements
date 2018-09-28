@@ -73,7 +73,7 @@
 							$panel.offset({
 								top: $editor.offset().top - $panel.outerHeight(),
 								left: $editor.offset().left
-							})
+							});
 
 							e.editor.on('focus', function () {
 								setPanelPosition();
@@ -127,7 +127,7 @@
 								ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
 							});
 						}
-					});
+					}, true);
 				});
 			} else {
 				initCKEditor(textarea, {
