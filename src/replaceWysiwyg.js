@@ -60,62 +60,7 @@
 							V1.Topics.Publish('RichText/Keyup', event.data.domEvent.$);
 						},
 						instanceReady: function (e) {
-							var $editor = $(e.editor.element.$);
-							var $panel = $(document.getElementById('cke_' + $editor.attr('id')));
-
-							$panel.css('maxWidth', $editor.outerWidth() + 'px');
-
-							var $scroller = $('.main-panel-scroller');
-							var panelHeight = $panel.outerHeight();
-							var editorHeight = $editor.outerHeight();
-							var scrollerOffset = $scroller.offset().top;
-
-							$panel.offset({
-								top: $editor.offset().top - $panel.outerHeight(),
-								left: $editor.offset().left
-							});
-
-							e.editor.on('focus', function () {
-								setPanelPosition();
-								$scroller.on('scroll', function () {
-									// setPanelPosition();
-									debouncedSetPanelPosition();
-								});
-							});
-
-							function debounce(f, ms) {
-
-								var timer = null;
-
-								return function (...args) {
-									const onComplete = () => {
-										f.apply(this, args);
-										timer = null;
-									}
-
-									if (timer) {
-										clearTimeout(timer);
-									}
-
-									timer = setTimeout(onComplete, ms);
-								};
-							}
-
-							var debouncedSetPanelPosition = debounce(setPanelPosition, 50);
-
-							function setPanelPosition() {
-								var editorOffset = $editor.offset().top;
-								var editorOffsetBottom = editorOffset + editorHeight;
-								var panelOffset = editorOffset - panelHeight;
-
-								if (panelOffset <= scrollerOffset && editorOffsetBottom >= scrollerOffset) {
-									$panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 1}, 150);
-								} else if (editorOffsetBottom < scrollerOffset) {
-									$panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 0}, 150);
-								} else {
-									$panel.animate({top: panelOffset, left: $editor.offset().left, opacity: 1}, 150);
-								}
-							}
+                            setupFloatPanel(e);
 
 							e.editor.on('simpleuploads.startUpload', function (ev) {
 								ev.data.extraFields = {
@@ -157,6 +102,62 @@
 			}
 		}
 	}
+
+	function setupFloatPanel(e){
+        var $editor = $(e.editor.element.$);
+        var $panel = $(document.getElementById('cke_' + $editor.attr('id')));
+
+        $panel.css('maxWidth', $editor.outerWidth() + 'px');
+
+        var $scroller = $('.main-panel-scroller');
+        var panelHeight = $panel.outerHeight();
+        var editorHeight = $editor.outerHeight();
+        var scrollerOffset = $scroller.offset().top;
+
+        $panel.offset({
+            top: $editor.offset().top - $panel.outerHeight(),
+            left: $editor.offset().left
+        });
+
+        setPanelPosition();
+        $scroller.on('scroll', function () {
+            debouncedSetPanelPosition();
+        });
+
+        function debounce(f, ms) {
+
+            var timer = null;
+
+            return function (...args) {
+                const onComplete = () => {
+                    f.apply(this, args);
+                    timer = null;
+                }
+
+                if (timer) {
+                    clearTimeout(timer);
+                }
+
+                timer = setTimeout(onComplete, ms);
+            };
+        }
+
+        var debouncedSetPanelPosition = debounce(setPanelPosition, 50);
+
+        function setPanelPosition() {
+            var editorOffset = $editor.offset().top;
+            var editorOffsetBottom = editorOffset + editorHeight;
+            var panelOffset = editorOffset - panelHeight;
+
+            if (panelOffset <= scrollerOffset && editorOffsetBottom >= scrollerOffset) {
+                $panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 1}, 150);
+            } else if (editorOffsetBottom < scrollerOffset) {
+                $panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 0}, 150);
+            } else {
+                $panel.animate({top: panelOffset, left: $editor.offset().left, opacity: 1}, 150);
+            }
+        }
+    }
 
 	function initCKEditor(element, on, isInline) {
 		var config = {
