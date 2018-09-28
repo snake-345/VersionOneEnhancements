@@ -46,9 +46,16 @@
 }
 .cke_editable td, .cke_editable th, .rich-text td, .rich-text th {
 	border: 1px solid #a6a6a6 !important;
-	padding: 5px !important;;
+	padding: 5px !important;
 }
 
 .cke_editable, .rich-text .inline-edit-content > div {
 	padding: 6px 10px;
+}
+
+.voe-inline-editor-button-wrapper {
+	position: sticky;
+	top: 0;
+	float: right;
+	z-index: 100000;
 }

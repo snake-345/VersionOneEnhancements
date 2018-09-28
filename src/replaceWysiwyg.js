@@ -40,11 +40,12 @@
 				tinyMCE.editors[0].destroy();
 
 				if (textareaContainer.classList.contains('inline-edit-content')) {
-					// addButtonForEditing(textareaContainer);
-					textarea.setAttribute('contenteditable', 'false');
-					textarea.addEventListener('focus', function () {
-						textarea.setAttribute('contenteditable', 'true');
+					var button = addButtonForEditing(textarea.id);
 
+					textarea.setAttribute('contenteditable', 'false');
+
+					button.addEventListener('click', function() {
+						textarea.setAttribute('contenteditable', 'true');
 						initCKEditor(textarea, {
 							blur: function (e) {
 								var id = this.element.$.id;
@@ -63,6 +64,8 @@
 							},
 							instanceReady: function (e) {
 								setupFloatPanel(e);
+
+								textarea.focus();
 
 								e.editor.on('simpleuploads.startUpload', function (ev) {
 									ev.data.extraFields = {
@@ -162,11 +165,13 @@
 		}
 	}
 
-	function addButtonForEditing(container) {
-		var button = document.createElement('div');
-		button.classList.add('voe-inline-editor-button');
-		button.classList.add('voe-inline-editor-button_hidden');
-		container.appendChild(button);
+	function addButtonForEditing(id) {
+		var wrapper = document.createElement('div');
+		wrapper.classList.add('voe-inline-editor-button-wrapper');
+		wrapper.innerHTML = '<button class="voe-inline-editor-button">Do you wanna edit this shit?</button>';
+		document.querySelector('label[for="' + id + '"]').parentNode.prepend(wrapper);
+
+		return wrapper.querySelector('button');
 	}
 
 	function initCKEditor(element, on, isInline) {

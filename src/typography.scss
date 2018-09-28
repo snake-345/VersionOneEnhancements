@@ -64,3 +64,10 @@
 .cke_editable, .rich-text .inline-edit-content > div {
 	padding: 6px 10px;
 }
+
+.voe-inline-editor-button-wrapper {
+	position: sticky;
+	top: 0;
+	float: right;
+	z-index: 100000;
+}
