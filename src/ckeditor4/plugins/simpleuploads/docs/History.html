@@ -120,7 +120,7 @@
 		</li>
 	<li>4.2.0: 2nd-march-2014<br>
 		New event simpleuploads.localImageReady that allows better checks on the selected images (not available for IE8 &amp; IE9).<br>
-		Based on this event, two new options are available, simpleuploads_convertBmp and simpleuploads_maximumDimensions<br>
+		Based on this event, two new options are available, simpleuploads_convertBmp (removed in 4.5) and simpleuploads_maximumDimensions<br>
 		More features (local resizing) will be available in a future release.<br>
 		This event requires asynchronous processing, so maybe there are situations that I didn't test properly, please, cautious with this update
 		for a few days.<br>
@@ -225,6 +225,40 @@
 		Added some missing translations for error messages</li>
 	<li>4.4.1: 29-February-2016<br>
 		Bugfix for broken usage of error message.</li>
+	<li>4.4.2: 04-July-2016<br>
+		Protect the displayed filename to avoid self-XSS attacks.<br>
+		Don't replace new lines with &lt;br&gt; in messages if the 'notification' is not available<br>
+		Use the CSRF token introduced in CKEditor 4.5.6 to upload files to latest CKFinder
+		</li>
+	<li>4.4.3: 18-November-2016<br>
+		Avoid leaving the placeholder and not inserting the image if the upload is just too fast.<br>
+		Avoid problems with E10s in Firefox betas<br>
+		Use lowercase CSS class names to avoid bug with Chrome
+		</li>
+	<li>4.4.4: 20-December-2016<br>
+		Allow to create a customized XHR object in simpleuploads.startUpload and pass it in the data object.<br>
+		</li>
+	<li>4.5.0: 18-February-2017<br>
+		Get ready for allowing pasting of images in the upcoming Safari<br>
+		Adjust the regexp that removes useless webkit-fake-url images<br>
+		Added bunch of file error handling to take care of problems with Safari<br>
+		Http error status is checked only if there isn't a callback that handled the server response<br>
+		Adjusted linting mostly for XO<br>
+		Removed simpleuploads_convertBmp configuration option. Now it's handled automatically, as well as tiff files (for Safari)<br>
+		</li>
+	<li>4.5.1: 28/07/2017<br>
+		Pass the data object in the simpleuploads.finishedUpload event<br>
+		Enable pasting images in Chrome on MacOs from the desktop (Finder)<br>
+		Prevent duplicate images with latest CKEditor and Firefox
+		</li>
+	<li>4.5.2: 23/08/2017<br>
+		Enabled pasting of images when a dialog is open (ex: the ImagesFromWord plugin)
+		</li>
+	<li>4.5.3: 24/08/2017<br>
+		Prevent pasting an image if there's HTML in the clipboard
+		</li>
+
+	
 </ol>
 
 <h2>See also</h2>

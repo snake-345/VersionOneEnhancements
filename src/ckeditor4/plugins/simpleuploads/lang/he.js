@@ -1,7 +1,7 @@
 ﻿CKEDITOR.plugins.setLang( 'simpleuploads', 'he',
 	{
 		// Tooltip for the "add file" toolbar button
-		addFile : 'הוסף קובץ',
+		addFile: 'הוסף קובץ',
 		// Tooltip for the "add image" toolbar button
 		addImage: 'הוסף תמונה',
 
@@ -12,7 +12,13 @@
 		errorPostFile: 'Error posting the file to %0\r\nResponse status:',
 
 		// File size is over config.simpleuploads_maxFileSize OR the server returns HTTP status 413
-		fileTooBig : 'הקובץ גדול מדי. בחר קובץ קטן יותר.',
+		fileTooBig: 'הקובץ גדול מדי. בחר קובץ קטן יותר.',
+
+		// the 4 FailedTo messages can happen in Safari until they fix pasting files from Finder
+		FailedToComputePreviewImageSize: 'Failed to compute the preview size. Try to drop it instead.',
+		FailedToLoadPreviewImage: 'Failed to display the preview image. Try to drop it instead.',
+		FailedToReadTheFile: 'Failed to read the file. Try to drop it instead.',
+		FailedToReadTheImage: 'Failed to read the image. Try to drop it instead.',
 
 		// The height of the image is over the allowed maximum
 		imageTooTall: 'The image is too tall',
@@ -21,7 +27,7 @@
 		imageTooWide: 'The image is too wide',
 
 		// The extension matches one of the blacklisted ones in config.simpleuploads_invalidExtensions
-		invalidExtension : 'סוג קובץ לא חוקי, השתמש אך ורק בסוגי קבצים חוקיים.',
+		invalidExtension: 'סוג קובץ לא חוקי, השתמש אך ורק בסוגי קבצים חוקיים.',
 
 		// The extension isn't included in config.simpleuploads_acceptedExtensions
 		nonAcceptedExtension: 'סוג הקובץ אינו חוקי, השתמש אך ורק בסוגי קבצים חוקיים:\r\n%0',
@@ -33,7 +39,7 @@
 		processing: 'מעבד...',
 
 		// images with webkit-fake-url can't be read
-		uselessSafari: 'Sorry, the images pasted with Safari aren\'t usable',
+		uselessSafari: 'Sorry, this version of Safari doesn\'t allow to paste images',
 
 		// Error in the XHR upload. I'm not sure under which conditions this could happen, but it's a safety check
 		xhrError: 'Error posting the file to %0'

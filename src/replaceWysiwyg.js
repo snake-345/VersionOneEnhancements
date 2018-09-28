@@ -1,98 +1,66 @@
 (function () {
-	var options = JSON.parse(document.querySelector('body').dataset.options);
+	var _options = JSON.parse(document.querySelector('body').dataset.options);
+	var _oidToken, _uploadUrl, _contentsCss;
 
-	window.addEventListener('load', function() {
-		var oldFindEditorByTextareaId = V1.Html.RichText._FindEditorByTextareaId;
-
-		V1.Html.RichText._FindEditorByTextareaId = function(id) {
-			var oldElement = oldFindEditorByTextareaId(id);
-			var element = document.getElementById(id);
-
-			if (oldElement) {
-				return oldElement;
-			}
-
-			if (element && element.classList.contains('cke_editable')) {
-				return {
-					target: document.getElementById(id),
-					getContent: function() {
-						return document.getElementById(id).innerHTML;
-					},
-					load: function () {}
-				};
-			}
-
-			return null;
-		};
-		replaceEditor();
-	});
+	window.addEventListener('load', replaceEditor);
 	document.addEventListener('voe.openLightBox', replaceEditor);
+	document.addEventListener('voe.refresh', replaceEditor);
 
 	function replaceEditor() {
-		if (window.tinyMCE && tinyMCE.editors.length) {
-			window.CKEDITOR_BASEPATH = options.baseUrl + 'ckeditor4/';
-			injectScript(options.baseUrl + 'ckeditor4/ckeditor.js', function() {
-				CKEDITOR.disableAutoInline = true;
+		if (!window.tinyMCE || !tinyMCE.editors.length) return;
 
-				var interval = setInterval(function() {
-					if (CKEDITOR.status === 'loaded') {
-						clearInterval(interval);
-						replace(options);
-					}
-				}, 100);
-			});
+		_oidToken = tinyMCE.settings.oidToken;
+		_uploadUrl = tinyMCE.settings.postUrl;
+		_contentsCss = tinyMCE.settings.content_css;
+
+		if (window.CKEDITOR) {
+			replace();
+			return;
 		}
+
+		window.CKEDITOR_BASEPATH = _options.baseUrl + 'ckeditor4/';
+		injectScript(_options.baseUrl + 'ckeditor4/ckeditor.js', function() {
+			CKEDITOR.disableAutoInline = true;
+
+			var interval = setInterval(function() {
+				if (CKEDITOR.status === 'loaded') {
+					clearInterval(interval);
+					replace();
+				}
+			}, 100);
+		});
 	}
 
-	function replace(options) {
-		var oidToken = tinyMCE.settings.oidToken;
-		var uploadUrl = tinyMCE.settings.postUrl;
-
+	function replace() {
 		for (var i = 0, l = tinyMCE.editors.length; i < l; i++) {
 			var textarea = tinyMCE.editors[0].getElement();
-			var $textareaContainer = $(textarea).parent();
+			var textareaContainer = textarea.parentNode;
 
 			tinyMCE.editors[0].destroy();
 
-			if ($textareaContainer.hasClass('inline-edit-content')) {
-				$(textarea).attr('contenteditable', 'true');
-				CKEDITOR.inline(textarea, {
-					startupFocus: false,
-					height: options.minHeightTinyMCE,
-					autoGrow_minHeight: options.minHeightTinyMCE,
-					autoGrow_maxHeight: options.maxHeightTinyMCE,
-					filebrowserUploadUrl: uploadUrl,
-					filebrowserImageUploadUrl: uploadUrl,
-					coreStyles_strike: {
-						element: 'span',
-						attributes: {'style': 'text-decoration: line-through;'},
-						overrides: 'strike'
-					},
-					stylesSet: [
-						{name: 'Red text', element: 'span', styles: {'color': 'red'}},
-						{name: 'Blue text', element: 'span', styles: {'color': 'blue'}},
-						{name: 'Green text', element: 'span', styles: {'color': 'green'}},
-						{name: 'Yellow highlight', element: 'span', styles: {'background-color': 'yellow'}},
-						{name: 'Light green highlight', element: 'span', styles: {'background-color': 'lightgreen'}},
-						{name: 'Light blue highlight', element: 'span', styles: {'background-color': 'lightblue'}}
-					],
-					extraPlugins: 'simpleuploads,justify,autogrow,keystrokes,notification',
-					on: {
-						blur: function() {
+			if (textareaContainer.classList.contains('inline-edit-content')) {
+				textarea.setAttribute('contenteditable', 'false');
+				textarea.addEventListener('focus', function() {
+					textarea.setAttribute('contenteditable', 'true');
+
+					initCKEditor(textarea, {
+						blur: function(e) {
+							var id = this.element.$.id;
+
+							textarea.setAttribute('contenteditable', 'false');
+							e.editor.destroy();
+
 							V1.Topics.Publish('RichText/Blur', {
-								target: { id: this.element.$.id }
+								target: { id: id }
 							});
-							// console.log(this.element.$);
 						},
-						change: function () {
-							console.log('on change', this.element.$);
-							// this.updateElement();
-							V1.Html.Event.Fire(this.element.$, "change");
+						key: function(event) {
+							V1.Topics.Publish('RichText/Keyup', event.data.domEvent.$);
 						},
 						instanceReady: function (e) {
 							e.editor.on('simpleuploads.startUpload', function (ev) {
 								ev.data.extraFields = {
-									oidToken: oidToken
+									oidToken: _oidToken
 								};
 							});
 
@@ -101,95 +69,84 @@
 							e.editor.on('simpleuploads.serverResponse', function (ev) {
 								ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
 							});
-
-							e.editor.on('simpleuploads.finishedUpload', function () {
-								// this.updateElement();
-								V1.Html.Event.Fire(this.element.$, "change");
-							});
 						}
-					},
-					simpleuploads_inputname: 'image',
-					toolbarGroups: [
-						{name: 'clipboard', groups: ['clipboard', 'undo']},
-						{name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-						{name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
-						{name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
-						{name: 'links', groups: ['links']},
-						{name: 'insert', groups: ['insert', 'addImage']},
-						{name: 'forms', groups: ['forms']},
-						{name: 'document', groups: ['mode', 'document', 'doctools']},
-						{name: 'others', groups: ['others']},
-						{name: 'styles', groups: ['styles']},
-						{name: 'colors', groups: ['colors']},
-						{name: 'about', groups: ['about']},
-						{name: 'tools', groups: ['tools']}
-					],
-					removeButtons: 'Subscript,Superscript,Image,Source,Blockquote,About,addFile'
+					}, true);
 				});
 			} else {
-				CKEDITOR.replace(textarea, {
-					height: options.minHeightTinyMCE,
-					autoGrow_minHeight: options.minHeightTinyMCE,
-					autoGrow_maxHeight: options.maxHeightTinyMCE,
-					filebrowserUploadUrl: uploadUrl,
-					filebrowserImageUploadUrl: uploadUrl,
-					coreStyles_strike: {
-						element: 'span',
-						attributes: {'style': 'text-decoration: line-through;'},
-						overrides: 'strike'
+				initCKEditor(textarea, {
+					change: function () {
+						this.updateElement();
+						V1.Html.Event.Fire(this.element.$, "change");
 					},
-					stylesSet: [
-						{name: 'Red text', element: 'span', styles: {'color': 'red'}},
-						{name: 'Blue text', element: 'span', styles: {'color': 'blue'}},
-						{name: 'Green text', element: 'span', styles: {'color': 'green'}},
-						{name: 'Yellow highlight', element: 'span', styles: {'background-color': 'yellow'}},
-						{name: 'Light green highlight', element: 'span', styles: {'background-color': 'lightgreen'}},
-						{name: 'Light blue highlight', element: 'span', styles: {'background-color': 'lightblue'}}
-					],
-					extraPlugins: 'simpleuploads,justify,autogrow,keystrokes,notification',
-					on: {
-						change: function () {
+					instanceReady: function (e) {
+						e.editor.on('simpleuploads.startUpload', function (ev) {
+							ev.data.extraFields = {
+								oidToken: _oidToken
+							};
+						});
+
+						window.editor = e.editor;
+
+						e.editor.on('simpleuploads.serverResponse', function (ev) {
+							ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
+						});
+
+						e.editor.on('simpleuploads.finishedUpload', function () {
 							this.updateElement();
 							V1.Html.Event.Fire(this.element.$, "change");
-						},
-						instanceReady: function (e) {
-							e.editor.on('simpleuploads.startUpload', function (ev) {
-								ev.data.extraFields = {
-									oidToken: oidToken
-								};
-							});
-
-							window.editor = e.editor;
-
-							e.editor.on('simpleuploads.serverResponse', function (ev) {
-								ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
-							});
-
-							e.editor.on('simpleuploads.finishedUpload', function () {
-								this.updateElement();
-								V1.Html.Event.Fire(this.element.$, "change");
-							});
-						}
-					},
-					simpleuploads_inputname: 'image',
-					toolbarGroups: [
-						{name: 'clipboard', groups: ['clipboard', 'undo']},
-						{name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-						{name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
-						{name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
-						{name: 'links', groups: ['links']},
-						{name: 'insert', groups: ['insert', 'addImage']},
-						{name: 'forms', groups: ['forms']},
-						{name: 'document', groups: ['mode', 'document', 'doctools']},
-						{name: 'others', groups: ['others']},
-						{name: 'styles', groups: ['styles']},
-						{name: 'colors', groups: ['colors']},
-						{name: 'about', groups: ['about']},
-						{name: 'tools', groups: ['tools']}
-					],
-					removeButtons: 'Subscript,Superscript,Image,Source,Blockquote,About,addFile'
+						});
+					}
 				});
 			}
+		}
+	}
+
+	function initCKEditor(element, on, isInline) {
+		var config = {
+			height: _options.minHeightTinyMCE,
+			autoGrow_minHeight: _options.minHeightTinyMCE,
+			autoGrow_maxHeight: _options.maxHeightTinyMCE,
+			filebrowserUploadUrl: _uploadUrl,
+			filebrowserImageUploadUrl: _uploadUrl,
+			coreStyles_strike: {
+				element: 'span',
+				attributes: {'style': 'text-decoration: line-through;'},
+				overrides: 'strike'
+			},
+			stylesSet: [
+				{name: 'Red text', element: 'span', styles: {'color': 'red'}},
+				{name: 'Blue text', element: 'span', styles: {'color': 'blue'}},
+				{name: 'Green text', element: 'span', styles: {'color': 'green'}},
+				{name: 'Yellow highlight', element: 'span', styles: {'background-color': 'yellow'}},
+				{name: 'Light green highlight', element: 'span', styles: {'background-color': 'lightgreen'}},
+				{name: 'Light blue highlight', element: 'span', styles: {'background-color': 'lightblue'}}
+			],
+			extraPlugins: 'simpleuploads,justify,autogrow,keystrokes,notification',
+			simpleuploads_inputname: 'image',
+			toolbarGroups: [
+				{name: 'clipboard', groups: ['clipboard', 'undo']},
+				{name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
+				{name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
+				{name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
+				{name: 'links', groups: ['links']},
+				{name: 'insert', groups: ['insert', 'addImage']},
+				{name: 'forms', groups: ['forms']},
+				{name: 'document', groups: ['mode', 'document', 'doctools']},
+				{name: 'others', groups: ['others']},
+				{name: 'styles', groups: ['styles']},
+				{name: 'colors', groups: ['colors']},
+				{name: 'about', groups: ['about']},
+				{name: 'tools', groups: ['tools']}
+			],
+			removeButtons: 'Subscript,Superscript,Image,Source,Blockquote,About,addFile',
+			on: on || {}
+		};
+
+		if (isInline) {
+			CKEDITOR.inline(element, config);
+		} else {
+			config.contentsCss = [_options.baseUrl + 'proximaNova.css', _options.baseUrl + 'typography.css'];
+			CKEDITOR.replace(element, config);
 		}
 	}
 })();

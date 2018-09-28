@@ -1,0 +1,66 @@
+.cke_editable, .rich-text {
+	font-size: 15px;
+	line-height: 1.4;
+	max-width: 1100px !important;
+	margin: 0 auto !important;
+	border: 0 !important;
+	font-family: 'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: bold;
+		margin: 10px 0;
+	}
+
+	h1 {
+		font-size: 2.2em;
+	}
+
+	h2 {
+		font-size: 1.8em;
+	}
+
+	h3 {
+		font-size: 1.4em;
+	}
+
+	h4 {
+		font-size: 1.2em;
+	}
+
+	h5 {
+		font-size: 1em;
+	}
+
+	h6 {
+		font-size: 0.8em;
+	}
+
+	.hide {
+		display: none !important;
+	}
+
+	p {
+		margin: 10px 0;
+		line-height: inherit !important;
+	}
+
+	ul {
+		padding-top: 0 !important;
+		padding-bottom: 0 !important;
+		margin-top: 10px !important;
+		margin-bottom: 10px !important;
+	}
+
+	table {
+		border-spacing: 0;
+	}
+
+	td, th {
+		border: 1px solid #a6a6a6 !important;
+		padding: 5px !important;
+	}
+}
+
+.cke_editable, .rich-text .inline-edit-content > div {
+	padding: 6px 10px;
+}

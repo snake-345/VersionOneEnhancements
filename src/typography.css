@@ -1,33 +1,54 @@
-.rich-text h1,
-.rich-text h2,
-.rich-text h3,
-.rich-text h4,
-.rich-text h5,
-.rich-text h6 {
-	font-weight: bold;
-}
-
-.rich-text {
+.cke_editable, .rich-text {
 	font-size: 15px;
 	line-height: 1.4;
 	max-width: 1100px !important;
 	margin: 0 auto !important;
 	border: 0 !important;
-	padding-left: 0 !important;
+	font-family: "Proxima Nova", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-
-.rich-text .hide {
+.cke_editable h1, .cke_editable h2, .cke_editable h3, .cke_editable h4, .cke_editable h5, .cke_editable h6, .rich-text h1, .rich-text h2, .rich-text h3, .rich-text h4, .rich-text h5, .rich-text h6 {
+	font-weight: bold;
+	margin: 10px 0;
+}
+.cke_editable h1, .rich-text h1 {
+	font-size: 2.2em;
+}
+.cke_editable h2, .rich-text h2 {
+	font-size: 1.8em;
+}
+.cke_editable h3, .rich-text h3 {
+	font-size: 1.4em;
+}
+.cke_editable h4, .rich-text h4 {
+	font-size: 1.2em;
+}
+.cke_editable h5, .rich-text h5 {
+	font-size: 1em;
+}
+.cke_editable h6, .rich-text h6 {
+	font-size: 0.8em;
+}
+.cke_editable .hide, .rich-text .hide {
 	display: none !important;
 }
-
-.rich-text p {
+.cke_editable p, .rich-text p {
 	margin: 10px 0;
 	line-height: inherit !important;
 }
-
-.rich-text ul {
+.cke_editable ul, .rich-text ul {
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;
 	margin-top: 10px !important;
 	margin-bottom: 10px !important;
+}
+.cke_editable table, .rich-text table {
+	border-spacing: 0;
+}
+.cke_editable td, .cke_editable th, .rich-text td, .rich-text th {
+	border: 1px solid #a6a6a6 !important;
+	padding: 5px !important;;
+}
+
+.cke_editable, .rich-text .inline-edit-content > div {
+	padding: 6px 10px;
 }
