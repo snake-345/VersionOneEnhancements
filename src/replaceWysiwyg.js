@@ -19,10 +19,10 @@
 		}
 
 		window.CKEDITOR_BASEPATH = _options.baseUrl + 'ckeditor4/';
-		injectScript(_options.baseUrl + 'ckeditor4/ckeditor.js', function() {
+		injectScript(_options.baseUrl + 'ckeditor4/ckeditor.js', function () {
 			CKEDITOR.disableAutoInline = true;
 
-			var interval = setInterval(function() {
+			var interval = setInterval(function () {
 				if (CKEDITOR.status === 'loaded') {
 					clearInterval(interval);
 					replace();
@@ -33,131 +33,141 @@
 
 	function replace() {
 		for (var i = 0, l = tinyMCE.editors.length; i < l; i++) {
-			var textarea = tinyMCE.editors[0].getElement();
-			var textareaContainer = textarea.parentNode;
+			(function () {
+				var textarea = tinyMCE.editors[0].getElement();
+				var textareaContainer = textarea.parentNode;
 
-			tinyMCE.editors[0].destroy();
+				tinyMCE.editors[0].destroy();
 
-			if (textareaContainer.classList.contains('inline-edit-content')) {
-				textarea.setAttribute('contenteditable', 'false');
-				textarea.addEventListener('focus', function() {
-					textarea.setAttribute('contenteditable', 'true');
+				if (textareaContainer.classList.contains('inline-edit-content')) {
+					// addButtonForEditing(textareaContainer);
+					textarea.setAttribute('contenteditable', 'false');
+					textarea.addEventListener('focus', function () {
+						textarea.setAttribute('contenteditable', 'true');
 
+						initCKEditor(textarea, {
+							blur: function (e) {
+								var id = this.element.$.id;
+
+								$('.main-panel-scroller').off('scroll');
+
+								textarea.setAttribute('contenteditable', 'false');
+								e.editor.destroy();
+
+								V1.Topics.Publish('RichText/Blur', {
+									target: {id: id}
+								});
+							},
+							key: function (event) {
+								V1.Topics.Publish('RichText/Keyup', event.data.domEvent.$);
+							},
+							instanceReady: function (e) {
+								setupFloatPanel(e);
+
+								e.editor.on('simpleuploads.startUpload', function (ev) {
+									ev.data.extraFields = {
+										oidToken: oidToken
+									};
+								});
+
+								e.editor.on('simpleuploads.serverResponse', function (ev) {
+									ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
+								});
+							}
+						}, true);
+					});
+				} else {
 					initCKEditor(textarea, {
-						blur: function (e) {
-							var id = this.element.$.id;
-
-							$('.main-panel-scroller').off('scroll');
-
-							textarea.setAttribute('contenteditable', 'false');
-							e.editor.destroy();
-
-							V1.Topics.Publish('RichText/Blur', {
-								target: {id: id}
-							});
-						},
-						key: function (event) {
-							V1.Topics.Publish('RichText/Keyup', event.data.domEvent.$);
+						change: function () {
+							this.updateElement();
+							V1.Html.Event.Fire(this.element.$, "change");
 						},
 						instanceReady: function (e) {
-                            setupFloatPanel(e);
-
 							e.editor.on('simpleuploads.startUpload', function (ev) {
 								ev.data.extraFields = {
-									oidToken: oidToken
+									oidToken: _oidToken
 								};
 							});
+
+							window.editor = e.editor;
 
 							e.editor.on('simpleuploads.serverResponse', function (ev) {
 								ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
 							});
+
+							e.editor.on('simpleuploads.finishedUpload', function () {
+								this.updateElement();
+								V1.Html.Event.Fire(this.element.$, "change");
+							});
 						}
-					}, true);
-				});
+					});
+				}
+			}());
+		}
+	}
+
+	function setupFloatPanel(e) {
+		var $editor = $(e.editor.element.$);
+		var $panel = $(document.getElementById('cke_' + $editor.attr('id')));
+
+		$panel.css('maxWidth', $editor.outerWidth() + 'px');
+
+		var $scroller = $('.main-panel-scroller');
+		var panelHeight = $panel.outerHeight();
+		var editorHeight = $editor.outerHeight();
+		var scrollerOffset = $scroller.offset().top;
+
+		$panel.offset({
+			top: $editor.offset().top - $panel.outerHeight(),
+			left: $editor.offset().left
+		});
+
+		setPanelPosition();
+		$scroller.on('scroll', function () {
+			debouncedSetPanelPosition();
+		});
+
+		function debounce(f, ms) {
+
+			var timer = null;
+
+			return function (...args) {
+				const onComplete = () => {
+					f.apply(this, args);
+					timer = null;
+				}
+
+				if (timer) {
+					clearTimeout(timer);
+				}
+
+				timer = setTimeout(onComplete, ms);
+			};
+		}
+
+		var debouncedSetPanelPosition = debounce(setPanelPosition, 50);
+
+		function setPanelPosition() {
+			var editorOffset = $editor.offset().top;
+			var editorOffsetBottom = editorOffset + editorHeight;
+			var panelOffset = editorOffset - panelHeight;
+
+			if (panelOffset <= scrollerOffset && editorOffsetBottom >= scrollerOffset) {
+				$panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 1}, 150);
+			} else if (editorOffsetBottom < scrollerOffset) {
+				$panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 0}, 150);
 			} else {
-				initCKEditor(textarea, {
-					change: function () {
-						this.updateElement();
-						V1.Html.Event.Fire(this.element.$, "change");
-					},
-					instanceReady: function (e) {
-						e.editor.on('simpleuploads.startUpload', function (ev) {
-							ev.data.extraFields = {
-								oidToken: _oidToken
-							};
-						});
-
-						window.editor = e.editor;
-
-						e.editor.on('simpleuploads.serverResponse', function (ev) {
-							ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
-						});
-
-						e.editor.on('simpleuploads.finishedUpload', function () {
-							this.updateElement();
-							V1.Html.Event.Fire(this.element.$, "change");
-						});
-					}
-				});
+				$panel.animate({top: panelOffset, left: $editor.offset().left, opacity: 1}, 150);
 			}
 		}
 	}
 
-	function setupFloatPanel(e){
-        var $editor = $(e.editor.element.$);
-        var $panel = $(document.getElementById('cke_' + $editor.attr('id')));
-
-        $panel.css('maxWidth', $editor.outerWidth() + 'px');
-
-        var $scroller = $('.main-panel-scroller');
-        var panelHeight = $panel.outerHeight();
-        var editorHeight = $editor.outerHeight();
-        var scrollerOffset = $scroller.offset().top;
-
-        $panel.offset({
-            top: $editor.offset().top - $panel.outerHeight(),
-            left: $editor.offset().left
-        });
-
-        setPanelPosition();
-        $scroller.on('scroll', function () {
-            debouncedSetPanelPosition();
-        });
-
-        function debounce(f, ms) {
-
-            var timer = null;
-
-            return function (...args) {
-                const onComplete = () => {
-                    f.apply(this, args);
-                    timer = null;
-                }
-
-                if (timer) {
-                    clearTimeout(timer);
-                }
-
-                timer = setTimeout(onComplete, ms);
-            };
-        }
-
-        var debouncedSetPanelPosition = debounce(setPanelPosition, 50);
-
-        function setPanelPosition() {
-            var editorOffset = $editor.offset().top;
-            var editorOffsetBottom = editorOffset + editorHeight;
-            var panelOffset = editorOffset - panelHeight;
-
-            if (panelOffset <= scrollerOffset && editorOffsetBottom >= scrollerOffset) {
-                $panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 1}, 150);
-            } else if (editorOffsetBottom < scrollerOffset) {
-                $panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 0}, 150);
-            } else {
-                $panel.animate({top: panelOffset, left: $editor.offset().left, opacity: 1}, 150);
-            }
-        }
-    }
+	function addButtonForEditing(container) {
+		var button = document.createElement('div');
+		button.classList.add('voe-inline-editor-button');
+		button.classList.add('voe-inline-editor-button_hidden');
+		container.appendChild(button);
+	}
 
 	function initCKEditor(element, on, isInline) {
 		var config = {
