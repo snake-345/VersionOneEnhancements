@@ -106,9 +106,30 @@
                             e.editor.on('focus',function() {
                                 setPanelPosition();
                                 $scroller.on('scroll', function () {
-                                    setPanelPosition();
+                                    // setPanelPosition();
+                                    debouncedSetPanelPosition();
                                 });
                             });
+
+                            function debounce(f, ms) {
+
+                                var timer = null;
+
+                                return function (...args) {
+                                    const onComplete = () => {
+                                        f.apply(this, args);
+                                        timer = null;
+                                    }
+
+                                    if (timer) {
+                                        clearTimeout(timer);
+                                    }
+
+                                    timer = setTimeout(onComplete, ms);
+                                };
+                            }
+
+                            var debouncedSetPanelPosition = debounce(setPanelPosition,50);
 
                             function setPanelPosition() {
                                 var editorOffset = $editor.offset().top;
@@ -116,13 +137,11 @@
                                 var panelOffset = editorOffset - panelHeight;
 
                                 if(panelOffset <= scrollerOffset && editorOffsetBottom >= scrollerOffset) {
-                                    $panel.offset({top: scrollerOffset, left: $editor.offset().left});
-                                    $panel.css('visibility','visible');
+                                    $panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 1},150);
                                 } else if(editorOffsetBottom < scrollerOffset) {
-                                    $panel.css('visibility','hidden');
+                                    $panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 0},150);
                                 } else {
-                                    $panel.offset({top: panelOffset, left: $editor.offset().left});
-                                    $panel.css('visibility','visible');
+                                    $panel.animate({top: panelOffset, left: $editor.offset().left, opacity: 1},150);
                                 }
                             }
 
