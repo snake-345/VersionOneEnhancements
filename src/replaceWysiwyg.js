@@ -69,7 +69,7 @@
 
 								e.editor.on('simpleuploads.startUpload', function (ev) {
 									ev.data.extraFields = {
-										oidToken: oidToken
+										oidToken: _oidToken
 									};
 								});
 
