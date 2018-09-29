@@ -57,5 +57,5 @@
 	position: sticky;
 	top: 0;
 	float: right;
-	z-index: 100000;
+	z-index: 1;
 }
