@@ -13,10 +13,6 @@ chrome.runtime.onMessage.addListener(function(request) {
 				injectScript(chrome.extension.getURL('replaceWysiwyg.js'));
 			}
 
-			if (options.typography) {
-				injectScript(chrome.extension.getURL('typography.js'));
-			}
-
 			if (options.expand) {
 				injectStyle(chrome.extension.getURL('expand.css'));
 			}

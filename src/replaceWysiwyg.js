@@ -2,6 +2,8 @@
 	var _options = JSON.parse(document.querySelector('body').dataset.options);
 	var _oidToken, _uploadUrl, _contentsCss;
 
+	injectStyle(_options.baseUrl + 'replaceWysiwyg.css');
+
 	window.addEventListener('load', replaceEditor);
 	document.addEventListener('voe.openLightBox', replaceEditor);
 	document.addEventListener('voe.refresh', replaceEditor);
@@ -40,44 +42,26 @@
 				tinyMCE.editors[0].destroy();
 
 				if (textareaContainer.classList.contains('inline-edit-content')) {
-					var button = addButtonForEditing(textarea.id);
+					var checkbox = addCheckboxForEditing(textarea.closest('.value'));
 
 					textarea.setAttribute('contenteditable', 'false');
 
-					button.addEventListener('click', function() {
-						textarea.setAttribute('contenteditable', 'true');
-						initCKEditor(textarea, {
-							blur: function (e) {
-								var id = this.element.$.id;
+					checkbox.addEventListener('change', function() {
+						if (this.checked) {
+							ininInlineCKEditor(textarea);
+						} else {
+							textarea.setAttribute('contenteditable', 'false');
 
-								$('.main-panel-scroller').off('scroll');
+							CKEDITOR.instances[textarea.id].destroy();
 
-								textarea.setAttribute('contenteditable', 'false');
-								e.editor.destroy();
+							if (!textarea.dataset.isChanged) { return; }
 
-								V1.Topics.Publish('RichText/Blur', {
-									target: {id: id}
-								});
-							},
-							key: function (event) {
-								V1.Topics.Publish('RichText/Keyup', event.data.domEvent.$);
-							},
-							instanceReady: function (e) {
-								setupFloatPanel(e);
+							delete textarea.dataset.isChanged;
 
-								textarea.focus();
-
-								e.editor.on('simpleuploads.startUpload', function (ev) {
-									ev.data.extraFields = {
-										oidToken: _oidToken
-									};
-								});
-
-								e.editor.on('simpleuploads.serverResponse', function (ev) {
-									ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
-								});
-							}
-						}, true);
+							V1.Topics.Publish('RichText/Blur', {
+								target: {id: textarea.id}
+							});
+						}
 					});
 				} else {
 					initCKEditor(textarea, {
@@ -86,16 +70,14 @@
 							V1.Html.Event.Fire(this.element.$, "change");
 						},
 						instanceReady: function (e) {
-							e.editor.on('simpleuploads.startUpload', function (ev) {
-								ev.data.extraFields = {
+							e.editor.on('simpleuploads.startUpload', function (e) {
+								e.data.extraFields = {
 									oidToken: _oidToken
 								};
 							});
 
-							window.editor = e.editor;
-
-							e.editor.on('simpleuploads.serverResponse', function (ev) {
-								ev.data.url = ev.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
+							e.editor.on('simpleuploads.serverResponse', function (e) {
+								e.data.url = e.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
 							});
 
 							e.editor.on('simpleuploads.finishedUpload', function () {
@@ -109,69 +91,47 @@
 		}
 	}
 
-	function setupFloatPanel(e) {
-		var $editor = $(e.editor.element.$);
-		var $panel = $(document.getElementById('cke_' + $editor.attr('id')));
+	function ininInlineCKEditor(textarea) {
+		textarea.setAttribute('contenteditable', 'true');
+		initCKEditor(textarea, {
+			blur: function (e) {
+				var id = this.element.$.id;
 
-		$panel.css('maxWidth', $editor.outerWidth() + 'px');
+				if (!e.editor.element.$.dataset.isChanged || e.editor.element.$.dataset.isDialogShown) { return; }
 
-		var $scroller = $('.main-panel-scroller');
-		var panelHeight = $panel.outerHeight();
-		var editorHeight = $editor.outerHeight();
-		var scrollerOffset = $scroller.offset().top;
+				// destroy and reinit for clean garbage from image widget
+				e.editor.destroy();
 
-		$panel.offset({
-			top: $editor.offset().top - $panel.outerHeight(),
-			left: $editor.offset().left
-		});
+				V1.Topics.Publish('RichText/Blur', {
+					target: {id: id}
+				});
 
-		setPanelPosition();
-		$scroller.on('scroll', function () {
-			debouncedSetPanelPosition();
-		});
+				ininInlineCKEditor(textarea);
+			},
+			dialogShow: function(e) {
+				e.editor.element.$.dataset.isDialogShown = '1';
+			},
+			dialogHide: function(e) {
+				delete e.editor.element.$.dataset.isDialogShown;
+			},
+			change: function(e) {
+				e.editor.element.$.dataset.isChanged = '1';
+			},
+			key: function (e) {
+				V1.Topics.Publish('RichText/Keyup', e.data.domEvent.$);
+			},
+			instanceReady: function (e) {
+				e.editor.on('simpleuploads.startUpload', function (e) {
+					e.data.extraFields = {
+						oidToken: _oidToken
+					};
+				});
 
-		function debounce(f, ms) {
-
-			var timer = null;
-
-			return function (...args) {
-				const onComplete = () => {
-					f.apply(this, args);
-					timer = null;
-				}
-
-				if (timer) {
-					clearTimeout(timer);
-				}
-
-				timer = setTimeout(onComplete, ms);
-			};
-		}
-
-		var debouncedSetPanelPosition = debounce(setPanelPosition, 50);
-
-		function setPanelPosition() {
-			var editorOffset = $editor.offset().top;
-			var editorOffsetBottom = editorOffset + editorHeight;
-			var panelOffset = editorOffset - panelHeight;
-
-			if (panelOffset <= scrollerOffset && editorOffsetBottom >= scrollerOffset) {
-				$panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 1}, 150);
-			} else if (editorOffsetBottom < scrollerOffset) {
-				$panel.animate({top: scrollerOffset, left: $editor.offset().left, opacity: 0}, 150);
-			} else {
-				$panel.animate({top: panelOffset, left: $editor.offset().left, opacity: 1}, 150);
+				e.editor.on('simpleuploads.serverResponse', function (e) {
+					e.data.url = e.data.xhr.responseText.match(/"Url":"([^"]*)/i)[1];
+				});
 			}
-		}
-	}
-
-	function addButtonForEditing(id) {
-		var wrapper = document.createElement('div');
-		wrapper.classList.add('voe-inline-editor-button-wrapper');
-		wrapper.innerHTML = '<button class="voe-inline-editor-button">Do you wanna edit this shit?</button>';
-		document.querySelector('label[for="' + id + '"]').parentNode.prepend(wrapper);
-
-		return wrapper.querySelector('button');
+		}, true);
 	}
 
 	function initCKEditor(element, on, isInline) {
@@ -194,7 +154,6 @@
 				{name: 'Light green highlight', element: 'span', styles: {'background-color': 'lightgreen'}},
 				{name: 'Light blue highlight', element: 'span', styles: {'background-color': 'lightblue'}}
 			],
-			extraPlugins: 'simpleuploads,justify,autogrow,keystrokes,notification',
 			simpleuploads_inputname: 'image',
 			toolbarGroups: [
 				{name: 'clipboard', groups: ['clipboard', 'undo']},
@@ -211,15 +170,65 @@
 				{name: 'about', groups: ['about']},
 				{name: 'tools', groups: ['tools']}
 			],
-			removeButtons: 'Subscript,Superscript,Image,Source,Blockquote,About,addFile',
+			removeButtons: 'Subscript,Superscript,addImage,Source,Blockquote,About,addFile',
 			on: on || {}
 		};
+		var sharedPanel, editingCheckbox, instance;
 
 		if (isInline) {
-			CKEDITOR.inline(element, config);
+			sharedPanel = addPlaceForSharedPanel(element.closest('.value'));
+			editingCheckbox = sharedPanel.parentNode.parentNode.querySelector('.voe-inline-editor-checkbox');
+
+			instance = CKEDITOR.inline(element, Object.assign({
+					extraPlugins: 'sharedspace',
+					sharedSpaces: {
+						top: sharedPanel.id
+					}
+				}, config));
+
+			instance.on('instanceReady', function() {
+				editingCheckbox.classList.add('voe-inline-editor-checkbox_shown');
+				sharedPanel.parentNode.style.top = sharedPanel.clientHeight + 'px';
+				editingCheckbox.style.top = sharedPanel.clientHeight + 'px';
+
+				window.addEventListener('resize', function () {
+					sharedPanel.parentNode.style.top = sharedPanel.clientHeight + 'px';
+					editingCheckbox.style.top = sharedPanel.clientHeight + 'px';
+				});
+			});
+			instance.on('beforeDestroy', function() {
+				editingCheckbox.style.top = 0 + 'px';
+				editingCheckbox.classList.remove('voe-inline-editor-checkbox_shown');
+				document.querySelector('#' + sharedPanel.id).parentNode.remove();
+			});
 		} else {
 			config.contentsCss = [_options.baseUrl + 'proximaNova.css', _options.baseUrl + 'typography.css'];
 			CKEDITOR.replace(element, config);
 		}
+	}
+
+	function addCheckboxForEditing(place) {
+		var wrapper = document.createElement('div');
+
+		wrapper.classList.add('voe-inline-editor-checkbox');
+		wrapper.innerHTML = '' +
+			'<div class="voe-inline-editor-checkbox__inner">' +
+				'<label>' +
+					'<input type="checkbox"> Editing' +
+				'</label>' +
+			'</div>';
+		place.prepend(wrapper);
+
+		return wrapper.querySelector('input');
+	}
+
+	function addPlaceForSharedPanel(place) {
+		var wrapper = document.createElement('div');
+
+		wrapper.classList.add('voe-inline-editor-shared-panel');
+		wrapper.innerHTML = '<div class="voe-inline-editor-shared-panel__inner" id="sharedPanel' + (new Date().getTime()) + '"></div>';
+		place.prepend(wrapper);
+
+		return wrapper.querySelector('.voe-inline-editor-shared-panel__inner');
 	}
 })();

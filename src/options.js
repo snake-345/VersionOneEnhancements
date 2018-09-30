@@ -3,8 +3,6 @@
 		replaceWysiwyg: true,
 		minHeightWysiwyg: 200,
 		maxHeightWysiwyg: 0,
-		typography: true,
-		removeExtraTags: true,
 		expand: true,
 		myWorkEnhancement: true
 	};
@@ -19,8 +17,6 @@
 			replaceWysiwyg: document.getElementById('replaceWysiwyg').checked,
 			minHeightWysiwyg: +document.getElementById('minHeightWysiwyg').value,
 			maxHeightWysiwyg: +document.getElementById('maxHeightWysiwyg').value,
-			typography: document.getElementById('typography').checked,
-			removeExtraTags: document.getElementById('removeExtraTags').checked,
 			expand: document.getElementById('expand').checked,
 			myWorkEnhancement: document.getElementById('myWorkEnhancement').checked
 		};
@@ -42,8 +38,6 @@
 		document.getElementById('replaceWysiwyg').checked = options.replaceWysiwyg;
 		document.getElementById('minHeightWysiwyg').value = options.minHeightWysiwyg;
 		document.getElementById('maxHeightWysiwyg').value = options.maxHeightWysiwyg;
-		document.getElementById('typography').checked = options.typography;
-		document.getElementById('removeExtraTags').checked = options.removeExtraTags;
 		document.getElementById('expand').checked = options.expand;
 		document.getElementById('myWorkEnhancement').checked = options.myWorkEnhancement;
 	}
