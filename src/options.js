@@ -1,6 +1,7 @@
 (function() {
 	var defaultOptions = {
 		replaceWysiwyg: true,
+		fontSizeWysiwyg: 15,
 		minHeightWysiwyg: 200,
 		maxHeightWysiwyg: 0,
 		expand: true,
@@ -15,6 +16,7 @@
 		var status = document.getElementById('status');
 		var options = {
 			replaceWysiwyg: document.getElementById('replaceWysiwyg').checked,
+			fontSizeWysiwyg: +document.getElementById('fontSizeWysiwyg').value,
 			minHeightWysiwyg: +document.getElementById('minHeightWysiwyg').value,
 			maxHeightWysiwyg: +document.getElementById('maxHeightWysiwyg').value,
 			expand: document.getElementById('expand').checked,
@@ -36,6 +38,7 @@
 		options = extend(defaultOptions, options ? options : {});
 
 		document.getElementById('replaceWysiwyg').checked = options.replaceWysiwyg;
+		document.getElementById('fontSizeWysiwyg').value = options.fontSizeWysiwyg;
 		document.getElementById('minHeightWysiwyg').value = options.minHeightWysiwyg;
 		document.getElementById('maxHeightWysiwyg').value = options.maxHeightWysiwyg;
 		document.getElementById('expand').checked = options.expand;

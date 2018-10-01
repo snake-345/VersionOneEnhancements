@@ -1,9 +1,8 @@
 ﻿var defaultOptions = {
 	replaceWysiwyg: true,
+	fontSizeWysiwyg: 15,
 	minHeightWysiwyg: 200,
 	maxHeightWysiwyg: 0,
-	typography: true,
-	removeExtraTags: true,
 	expand: true,
 	myWorkEnhancement: true
 };

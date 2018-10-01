@@ -4,7 +4,10 @@
 
 	injectStyle(_options.baseUrl + 'replaceWysiwyg.css');
 
-	window.addEventListener('load', replaceEditor);
+	window.addEventListener('load', function() {
+		injectDefaultFontSize(document.head);
+		replaceEditor();
+	});
 	document.addEventListener('voe.onFloatingGadgetShown', replaceEditor);
 	document.addEventListener('voe.openLightBox', replaceEditor);
 	document.addEventListener('voe.refresh', replaceEditor);
@@ -32,6 +35,14 @@
 				}
 			}, 100);
 		});
+	}
+
+	function injectDefaultFontSize(place) {
+		var style = document.createElement('style');
+
+		style.type = 'text/css';
+		style.appendChild(document.createTextNode('.cke_editable, .rich-text { font-size: ' + _options.fontSizeWysiwyg + 'px }'));
+		place.appendChild(style);
 	}
 
 	function replace() {
@@ -208,7 +219,10 @@
 			});
 		} else {
 			config.contentsCss = [_options.baseUrl + 'proximaNova.css', _options.baseUrl + 'replaceWysiwyg.css'];
-			CKEDITOR.replace(element, config);
+			instance = CKEDITOR.replace(element, config);
+			instance.on('instanceReady', function(e) {
+				injectDefaultFontSize(e.editor.document.getHead().$);
+			});
 		}
 	}
 
