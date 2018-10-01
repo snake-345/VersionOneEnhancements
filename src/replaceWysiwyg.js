@@ -5,6 +5,7 @@
 	injectStyle(_options.baseUrl + 'replaceWysiwyg.css');
 
 	window.addEventListener('load', replaceEditor);
+	document.addEventListener('voe.onFloatingGadgetShown', replaceEditor);
 	document.addEventListener('voe.openLightBox', replaceEditor);
 	document.addEventListener('voe.refresh', replaceEditor);
 
@@ -45,6 +46,10 @@
 					var checkbox = addCheckboxForEditing(textarea.closest('.value'));
 
 					textarea.setAttribute('contenteditable', 'false');
+
+					textarea.addEventListener('blur', function() {
+						textarea.closest('.rich-text-content').classList.remove('isEditing');
+					});
 
 					checkbox.addEventListener('change', function() {
 						if (this.checked) {
@@ -202,7 +207,7 @@
 				document.querySelector('#' + sharedPanel.id).parentNode.remove();
 			});
 		} else {
-			config.contentsCss = [_options.baseUrl + 'proximaNova.css', _options.baseUrl + 'typography.css'];
+			config.contentsCss = [_options.baseUrl + 'proximaNova.css', _options.baseUrl + 'replaceWysiwyg.css'];
 			CKEDITOR.replace(element, config);
 		}
 	}

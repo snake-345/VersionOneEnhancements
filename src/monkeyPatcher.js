@@ -3,6 +3,7 @@
 	patchRefresh();
 	patchOpenLightBox();
 	patchFindEditorByTextareaId();
+	patchOnFloatingGadgetShown();
 
 	function patchCompleteHandler () {
 		var backupFunc = V1.HttpRequest._CompleteHandler;
@@ -59,5 +60,14 @@
 				remove: function() {}
 			};
 		};
+	}
+
+	function patchOnFloatingGadgetShown() {
+		var backupFunc = V1.Gadgets.FloatingGadget._OnFloatingGadgetShown;
+
+		V1.Gadgets.FloatingGadget._OnFloatingGadgetShown = function(a, b) {
+			document.dispatchEvent(new Event('voe.onFloatingGadgetShown'));
+			backupFunc(a, b);
+		}
 	}
 })();
