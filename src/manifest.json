@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "VersionOneEnhancements",
     "description": "The extension that reduces your pain from using VersionOne and makes you happy.",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "content_scripts": [
         {
             "matches": [
@@ -16,7 +16,7 @@
         },
         {
             "matches": [
-                "http://*/*", 
+                "http://*/*",
                 "https://*/*"
             ],
             "js": [
@@ -25,8 +25,8 @@
         }
     ],
     "icons": {
-        "128": "icons/icon128.png", 
-        "48": "icons/icon48.png", 
+        "128": "icons/icon128.png",
+        "48": "icons/icon48.png",
         "16": "icons/button.png"
     },
     "browser_action": {
@@ -41,14 +41,14 @@
         "scripts": ["main.js"],
         "persistent": true
     },
-    "homepage_url": "https://github.com/snake-345/VersionOneEnhancements", 
+    "homepage_url": "https://github.com/snake-345/VersionOneEnhancements",
 
     "options_page": "options.html",
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "permissions": [
-        "tabs", 
-        "contextMenus", 
-        "webNavigation", 
+        "tabs",
+        "contextMenus",
+        "webNavigation",
         "<all_urls>",
         "webRequest",
         "idle",
