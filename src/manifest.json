@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "VersionOneEnhancements",
     "description": "The extension that reduces your pain from using VersionOne and makes you happy.",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "content_scripts": [
         {
             "matches": [
