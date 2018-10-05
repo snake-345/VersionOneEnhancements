@@ -134,7 +134,7 @@
 			});
 
 			canvas.on('text:editing:exited', function(obj) {
-				if (!obj.target.getText()) {
+				if (!obj.target.text) {
 					canvas.remove(obj.target);
 				}
 			});
@@ -272,11 +272,9 @@
 					selectable: false,
 					perPixelTargetFind: true
 				});
-				group.addWithUpdate(line.clone());
-				group.addWithUpdate(line.triangle.clone());
+				group.addWithUpdate(line);
+				group.addWithUpdate(line.triangle);
 				canvas.add(group);
-				line.triangle.remove();
-				line.remove();
 				canvas.renderAll();
 				isDown = false;
 			});
@@ -466,7 +464,8 @@
 		};
 
 		this.endMove = function() {
-			canvas.deactivateAll().renderAll();
+			canvas.discardActiveObject();
+			canvas.renderAll();
 		};
 
 		this.startDrawing = function() {
@@ -487,7 +486,6 @@
 
 		this.setColor = function(color) {
 			var activeObject = canvas.getActiveObject();
-			var activeGroup = canvas.getActiveGroup();
 
 			document.querySelector('.js-editor-color-selected').classList.remove(self.color);
 			document.querySelector('.js-editor-color-selected').classList.add(color);
@@ -496,38 +494,32 @@
 			document.querySelector('.js-editor-color.active').classList.remove('active');
 			document.querySelector('.js-editor-color[data-value=' + color + ']').classList.add('active');
 
-			if (activeGroup) {
-				activeGroup.forEachObject(function(obj) {
-					if (obj.type === 'i-text') {
-						obj.setFill(color);
-					} else if (obj.type === 'group') {
-						obj.setFill(color);
-						obj.setStroke(color);
-					} else {
-						obj.setStroke(color);
-					}
-				});
-			}
-
 			if (activeObject) {
 				if (activeObject.type === 'i-text') {
-					activeObject.setFill(color);
+					activeObject.set({
+						fill: color
+					});
 				} else if (activeObject.type === 'group') {
-					activeObject.setFill(color);
-					activeObject.setStroke(color);
+					activeObject.item(0).set({
+						stroke: color
+					});
+					activeObject.item(1).set({
+						fill: color
+					});
 				} else {
-					activeObject.setStroke(color);
+					activeObject.set({
+						stroke: color
+					});
 				}
 			}
 
-			if (activeGroup || activeObject) {
+			if (activeObject) {
 				canvas.renderAll();
 			}
 		};
 
 		this.setLineWidth = function(lineWidth) {
 			var activeObject = canvas.getActiveObject();
-			var activeGroup = canvas.getActiveGroup();
 
 			document.querySelector('.js-editor-line-width-selected').classList.remove('w' + self.lineWidth);
 			document.querySelector('.js-editor-line-width-selected').classList.add('w' + lineWidth);
@@ -536,37 +528,25 @@
 			document.querySelector('.js-editor-line-width.active').classList.remove('active');
 			document.querySelector('.js-editor-line-width[data-value="' + lineWidth + '"]').classList.add('active');
 
-			if (activeGroup) {
-				activeGroup.forEachObject(function(obj) {
-					if (obj.type !== 'i-text') {
-						if (obj.type === 'group') {
-							obj.item(0).setStrokeWidth(lineWidth);
-							obj.item(1).set({
-								width: lineWidth + self.arrowAddWidth,
-								height: lineWidth + self.arrowAddWidth
-							});
-						} else {
-							obj.setStrokeWidth(lineWidth);
-						}
-					}
-				});
-			}
-
 			if (activeObject) {
 				if (activeObject.type !== 'i-text') {
 					if (activeObject.type === 'group') {
-						activeObject.item(0).setStrokeWidth(lineWidth);
+						activeObject.item(0).set({
+							strokeWidth: lineWidth
+						});
 						activeObject.item(1).set({
 							width: lineWidth + self.arrowAddWidth,
 							height: lineWidth + self.arrowAddWidth
 						});
 					} else {
-						activeObject.setStrokeWidth(lineWidth);
+						activeObject.set({
+							strokeWidth: lineWidth
+						});
 					}
 				}
 			}
 
-			if (activeGroup || activeObject) {
+			if (activeObject) {
 				canvas.renderAll();
 			}
 		};

@@ -24,8 +24,8 @@
 			return;
 		}
 
-		window.CKEDITOR_BASEPATH = _options.baseUrl + 'ckeditor4/';
-		injectScript(_options.baseUrl + 'ckeditor4/ckeditor.js', function () {
+		window.CKEDITOR_BASEPATH = _options.baseUrl + 'dependencies/ckeditor4/';
+		injectScript(_options.baseUrl + 'dependencies/ckeditor4/ckeditor.js', function () {
 			CKEDITOR.disableAutoInline = true;
 
 			var interval = setInterval(function () {
