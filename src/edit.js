@@ -616,10 +616,11 @@
 			var activeScopes = getParentsScopes(fieldsData.scopes, event.target.dataset.value);
 			var prevLevel = -1;
 
-			parentDropdown.innerHTML = generateDropdown(fieldsData.parents, 0, function(name, obj, level) {
+
+			generateDropdown(parentDropdown, fieldsData.parents, 0, function(name, obj, level) {
 				if (activeScopes.indexOf(obj.scopeId) !== -1 && prevLevel + 1 >= level || name === '>>> Miscellaneous <<<') {
 					prevLevel = level;
-					return '<div data-value="' + obj.id + '" class="custom-select-dropdown-item level' + level + '">' + name + '</div>'
+					return generateOption(obj.id, level, name);
 				} else {
 					return '';
 				}
@@ -778,15 +779,15 @@
 	function generateForm() {
 		var activeScope;
 
-		document.querySelector('.js-scope-dropdown').innerHTML = generateDropdown(fieldsData.scopes, 0, function(name, obj, level) {
-			return '<div data-value="' + obj.id + '" class="custom-select-dropdown-item level' + level + '">' + name + '</div>'
+		generateDropdown(document.querySelector('.js-scope-dropdown'), fieldsData.scopes, 0, function(name, obj, level) {
+			return generateOption(obj.id, level, name);
 		});
 		document.querySelector('.js-scope-dropdown .custom-select-dropdown-item').dispatchEvent(new Event('mousedown', {bubbles: true}));
 
 		activeScope = document.querySelector('input[name="Scope"]').dataset.value;
-		document.querySelector('.js-parent-dropdown').innerHTML = generateDropdown(fieldsData.parents, 0, function(name, obj, level) {
+		generateDropdown(document.querySelector('.js-parent-dropdown'), fieldsData.parents, 0, function(name, obj, level) {
 			if (obj.scopeId === activeScope || name === '>>> Miscellaneous <<<') {
-				return '<div data-value="' + obj.id + '" class="custom-select-dropdown-item level' + level + '">' + name + '</div>'
+				return generateOption(obj.id, level, name);
 			} else {
 				return '';
 			}
@@ -809,17 +810,30 @@
 		return treeData;
 	}
 
-	function generateDropdown(tree, n, generateOption) {
-		var options = '';
+	function generateDropdown(dropdown, tree, n, generateOption) {
+		var option;
 
 		for (var key in tree) {
-			options += generateOption(key, tree[key], n);
+			option = generateOption(key, tree[key], n);
+
+			if (option) {
+				dropdown.appendChild(option);
+			}
+
 			if (tree[key].childrens) {
-				options += generateDropdown(tree[key].childrens, n + 1, generateOption);
+				generateDropdown(dropdown, tree[key].childrens, n + 1, generateOption);
 			}
 		}
+	}
 
-		return options;
+	function generateOption(value, level, text) {
+		var option = document.createElement('div');
+
+		option.dataset.value = value;
+		option.classList.add('custom-select-dropdown-item', 'level' + level);
+		option.textContent = text;
+
+		return option;
 	}
 
 	function getParentsScopes(scopes, scopeId, res) {
