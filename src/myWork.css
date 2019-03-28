@@ -1,15 +1,20 @@
 .__in-progress,
-.__in-acceptance-testing,
-.__ready-to-test {
+.__code-review,
+.__acceptance-testing,
+.__ready-to-test,
+.__in-review {
 	background: #FBFBEB !important;
 }
 
 .__completed,
+.__pending-merge,
 .__ready-to-release,
-.__released {
+.__released,
+.__resolved {
 	background: #EDFFEB !important;
 }
 
-.__blocked {
+.__blocked,
+.__returned {
 	background: #FFF2F2 !important;
 }
