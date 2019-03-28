@@ -6,21 +6,17 @@
 	expand: true,
 	myWorkEnhancement: true
 };
-var options;
 var captured = [];
 
-options = JSON.parse(localStorage.options || '{}');
-options = extend(defaultOptions, options ? options : {});
-options.baseUrl = chrome.extension.getURL('content.js').replace('content.js', '');
+chrome.storage.sync.get('options', function(data) {
+	chrome.storage.sync.set({
+		options: extend(defaultOptions, data.options),
+		baseUrl: chrome.extension.getURL('content.js').replace('content.js', '')
+	});
+});
 
 chrome.runtime.onMessage.addListener(function (request) {
 	switch (request.action) {
-		case 'saveOptions':
-			saveOptions(request);
-			break;
-		case 'getOptions':
-			getOptions(request);
-			break;
 		case 'cleanCaptured':
 			cleanCaptured(request);
 			break;
@@ -81,26 +77,6 @@ function openDefectEditing(event) {
 
 			chrome.tabs.remove(tabs[0].id);
 			chrome.tabs.create({url: event.data});
-		});
-	});
-}
-
-function saveOptions(event) {
-	var newOptions = event.data;
-	newOptions.baseUrl = chrome.extension.getURL('content.js').replace('content.js', '');
-
-	localStorage.options = JSON.stringify(newOptions);
-	options = newOptions;
-}
-
-function getOptions() {
-	chrome.windows.getCurrent(function(window){
-		chrome.tabs.query({windowId:window.id, active:true},function(tabs) {
-			if(tabs.length<=0) {
-				return;
-			}
-
-			chrome.tabs.sendMessage(tabs[0].id, {action: 'OptionsToContent', data: options});
 		});
 	});
 }
