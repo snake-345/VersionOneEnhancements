@@ -5,7 +5,7 @@
     "version": "2.1.2",
     "applications": {
         "gecko": {
-            "id": "VersionOneEnhancements@snake-345"
+            "id": "{38BCC9DA-47E4-4F99-854F-50A634111554}"
         }
     },
     "content_scripts": [
