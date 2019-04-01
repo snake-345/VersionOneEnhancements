@@ -11,7 +11,7 @@
 	function _showPullRequestsInfo() {
 		var id = document.querySelector('.asset-summary.Story .title-id, .asset-summary.Defect .title-id, .asset-summary.Epic .title-id')
 
-		if (!id) { return; }
+		if (!id || document.querySelector('.pull-requests')) { return; }
 
 		injectStyle(options.baseUrl + 'showPullRequestInfo.css');
 
