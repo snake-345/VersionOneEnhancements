@@ -1,0 +1,45 @@
+.pull-requests {
+	width: 100%;
+}
+
+.pull-requests__title {
+	text-transform: uppercase;
+}
+
+.pull-requests__info {
+	width: 100%;
+}
+
+.pull-requests__info + .pull-requests__info td {
+	padding-top: 7px;
+}
+
+.pull-requests__info td {
+	padding-right: 40px;
+	vertical-align: top;
+}
+
+.pull-requests__info td:last-child {
+	padding-right: 0;
+}
+
+.pull-requests__branch {
+	white-space: nowrap;
+}
+
+.pull-requests__reviewer {
+	margin-right: 10px;
+	color: red;
+}
+
+.pull-requests__reviewer_approved {
+	color: green;
+}
+
+.pull-requests__status_declined {
+	color: red;
+}
+
+.pull-requests__status_merged {
+	color: green;
+}

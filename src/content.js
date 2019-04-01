@@ -19,5 +19,9 @@ chrome.storage.sync.get(['options', 'baseUrl'], function(data) {
 		if (options.myWorkEnhancement) {
 			injectScript(chrome.extension.getURL('myWork.js'));
 		}
+
+		if (options.showPullRequestInfo) {
+			injectScript(chrome.extension.getURL('showPullRequestInfo.js'));
+		}
 	});
 });

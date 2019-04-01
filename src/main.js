@@ -4,7 +4,8 @@
 	minHeightWysiwyg: 200,
 	maxHeightWysiwyg: 0,
 	expand: true,
-	myWorkEnhancement: true
+	myWorkEnhancement: true,
+	showPullRequestInfo: true,
 };
 var captured = [];
 
