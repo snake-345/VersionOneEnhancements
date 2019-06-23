@@ -2,7 +2,7 @@
 The extension that reduces your pain from using VersionOne and makes you happy.
 
 ## Features
-* Easy way for adding defects. Just make screenshot, highlight the importance of the screenshot and fill field like title, description. At the moment you can fill only required fields and then you will redirect to versionOne defect editing. In future you will have able fill all fields and create defects without redirect to versionOne editing. 
+* Easy way for adding defects. Just make screenshot, highlight the importance of the screenshot and fill field like title, description. At the moment you can fill only required fields and then you will redirect to versionOne defect editing. In future you will have able fill all fields and create defects without redirect to versionOne editing. **[Unfotunately not working right now, but you can help fix problems by creating some pull requests]**
 * Replaces WYSIWYG with CKEditor. Even inline editing.
   * Shortcuts for h1 - h6: CTRL+1 - CTRL+6 or CMD+1 - CMD+6
   * Paste image from clipboard, drag'n'drop or use button to upload.
