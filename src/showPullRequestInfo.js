@@ -87,18 +87,22 @@
 					return 0;
 				}).reduce(function(revHtml, reviewer) {
 					return revHtml + ' ' + reviewerTemplate
-						.replace('{reviewer}', reviewer.name)
+						.replace('{reviewer}', escapeHTML(reviewer.name))
 						.replace('{reviewerStatus}', reviewer.approved ? 'approved' : 'not-approved');
 				}, '');
 			}
 
 			return html + pullRequestTemplate
-				.replace('{url}', pullRequest.url)
-				.replace('{repName}', pullRequest.repository_name)
-				.replace('{source}', pullRequest.branch_name)
-				.replace('{destination}', pullRequest.destination)
+				.replace('{url}', escapeHTML(pullRequest.url))
+				.replace('{repName}', escapeHTML(pullRequest.repository_name))
+				.replace('{source}', escapeHTML(pullRequest.branch_name))
+				.replace('{destination}', escapeHTML(pullRequest.destination))
 				.replace('{reviewers}', reviewersHtml)
-				.replace(/{status}/g, pullRequest.status);
+				.replace(/{status}/g, escapeHTML(pullRequest.status));
 		}, ''));
+	}
+
+	function escapeHTML(text) {
+		return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 	}
 })();
