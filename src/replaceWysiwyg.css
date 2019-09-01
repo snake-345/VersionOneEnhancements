@@ -66,13 +66,13 @@
 	right: 0;
 }
 
-.cke_editable, .rich-text {
+.cke_editable, .rich-text, .asset-info .fields .rich-text {
 	line-height: 1.4;
 	max-width: 1100px !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
 	border: 0 !important;
-	font-family: "Proxima Nova", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-family: Cabin,"Cabin Local",-apple-system,system-ui,BlinkMacSystemFont,sans-serif;
 }
 
 .cke_editable h1, .cke_editable h2, .cke_editable h3, .cke_editable h4, .cke_editable h5, .cke_editable h6, .rich-text h1, .rich-text h2, .rich-text h3, .rich-text h4, .rich-text h5, .rich-text h6 {

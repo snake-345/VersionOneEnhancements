@@ -9,7 +9,7 @@
 	document.addEventListener('voe.refresh', _showPullRequestsInfo);
 
 	function _showPullRequestsInfo() {
-		var id = document.querySelector('.asset-summary.Story .title-id, .asset-summary.Defect .title-id, .asset-summary.Epic .title-id')
+		var id = document.querySelector('.asset-summary.Story .title-id, .asset-summary.Defect .title-id, .asset-summary.Epic .title-id');
 
 		if (!id || document.querySelector('.pull-requests')) { return; }
 
@@ -30,7 +30,7 @@
 		customFields.parentNode.insertBefore(hr, customFields);
 		customFields.parentNode.insertBefore(pullRequests, customFields);
 
-		_getPullRequests(id.innerText.trim().split(' ')[1])
+		_getPullRequests(id.innerText.trim())
 			.then(function(data) {
 				if (!data.length) {
 					pullRequests.innerHTML = _generateEmptyHtml();
