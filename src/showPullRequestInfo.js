@@ -103,6 +103,11 @@
 	}
 
 	function escapeHTML(text) {
-		return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+		return text
+			.replace(/&/g,'&amp;')
+			.replace(/</g,'&lt;')
+			.replace(/>/g,'&gt;')
+			.replace('/\'/g', '&#39;')
+			.replace('/\"/g', '&#34;');
 	}
 })();
