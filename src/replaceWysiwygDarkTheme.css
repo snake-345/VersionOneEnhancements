@@ -1,0 +1,141 @@
+.voe-inline-editor-checkbox__inner {
+	border-color: #2b5363;
+	background: #14262d;
+}
+
+body.cke_editable {
+	background: #14262d;
+	color: #e6f0f4;
+}
+
+.dark .cke_inner {
+	background: #14262d;
+}
+
+.dark .cke_panel {
+	border-color: #2b5363;
+	box-shadow: none;
+}
+
+.cke_panel_block {
+	background: #14262d;
+	color: #e6f0f4;
+}
+
+.cke_panel_grouptitle {
+	color: #e6f0f4;
+	background: #21404c;
+	border: none;
+}
+
+.cke_panel_listItem a {
+	border: 1px solid transparent;
+}
+
+.cke_panel_listItem:first-child a {
+	border-top: 0;
+}
+
+.cke_panel_listItem a:focus,
+.cke_panel_listItem a:hover,
+.cke_panel_listItem a:active,
+.cke_panel_listItem.cke_selected a {
+	border: 1px solid #2b5363;
+	background: none;
+	outline: none;
+}
+
+.cke_panel_listItem a:focus {
+	border-color: transparent;
+}
+
+.cke_panel_listItem a:hover,
+.cke_panel_listItem.cke_selected a {
+	border: 1px solid #2b5363;
+}
+
+.cke_inner .cke_bottom {
+	box-shadow: none;
+	background: #1f3742;
+	border-top-color: #2b5363;
+}
+
+.cke_editable td, .cke_editable th, .rich-text td, .rich-text th {
+	border-color: #2b5363 !important;
+}
+
+.dark .cke_chrome {
+	border-color: #2b5363;
+}
+
+.dark .cke_top {
+	background: #14262d;
+	box-shadow: none;
+	border: 0;
+}
+
+.dark .cke_toolgroup,
+.dark .cke_combo_button {
+	box-shadow: none;
+	background: #21404c;
+}
+
+.dark a.cke_button_off:hover,
+.dark a.cke_button_off:focus,
+.dark a.cke_button_off:active,
+.dark a.cke_button_disabled:hover,
+.dark a.cke_button_disabled:focus,
+.dark a.cke_button_disabled:active,
+.dark .cke_combo_off a.cke_combo_button:hover,
+.dark .cke_combo_off a.cke_combo_button:focus {
+	background: #2c5667;
+}
+
+.dark .cke_button_on,
+.dark .cke_combo_off a.cke_combo_button:active,
+.dark .cke_combo_on a.cke_combo_button {
+	background: #21404c;
+}
+
+.dark .cke_dialog a,
+.dark .cke_dialog a:hover,
+.dark .cke_dialog label {
+	color: #000000;
+}
+
+.cke_editable .voe-red-color,
+.rich-text .voe-red-color,
+.voe-red-color {
+	color: #ce0f00;
+}
+
+.cke_editable .voe-blue-color,
+.rich-text .voe-blue-color,
+.voe-blue-color {
+	color: #6060ff;
+}
+
+.cke_editable .voe-green-color,
+.rich-text .voe-green-color,
+.voe-green-color {
+	color: #00c500;
+}
+
+.cke_editable .voe-yellow-highlight,
+.rich-text .voe-yellow-highlight,
+.voe-yellow-highlight {
+	background: #f5f503;
+	color: #1f1f1f;
+}
+
+.cke_editable .voe-green-highlight,
+.rich-text .voe-green-highlight,
+.voe-green-highlight {
+	background: #008400;
+}
+
+.cke_editable .voe-blue-highlight,
+.rich-text .voe-blue-highlight,
+.voe-blue-highlight {
+	background: blue;
+}

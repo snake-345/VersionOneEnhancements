@@ -12,6 +12,7 @@
 			maxHeightWysiwyg: +document.getElementById('maxHeightWysiwyg').value,
 			expand: document.getElementById('expand').checked,
 			myWorkEnhancement: document.getElementById('myWorkEnhancement').checked,
+			highlightId: document.getElementById('highlightId').checked,
 			showPullRequestInfo: document.getElementById('showPullRequestInfo').checked
 		};
 
@@ -33,6 +34,7 @@
 			document.getElementById('maxHeightWysiwyg').value = data.options.maxHeightWysiwyg;
 			document.getElementById('expand').checked = data.options.expand;
 			document.getElementById('myWorkEnhancement').checked = data.options.myWorkEnhancement;
+			document.getElementById('highlightId').checked = data.options.highlightId;
 			document.getElementById('showPullRequestInfo').checked = data.options.showPullRequestInfo;
 		});
 	}

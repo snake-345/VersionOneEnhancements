@@ -37,8 +37,7 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	border: 1px solid #d1d1d1;
-	background: #f8f8f8;
+	border: 1px solid;
 	padding: 5px 10px;
 }
 
@@ -49,6 +48,7 @@
 
 .voe-inline-editor-checkbox input {
 	margin-right: 5px;
+	margin-top: -3px;
 }
 
 .voe-inline-editor-shared-panel {
@@ -75,13 +75,28 @@
 	font-family: Cabin,"Cabin Local",-apple-system,system-ui,BlinkMacSystemFont,sans-serif;
 }
 
+.cke_panel_block {
+	font-family: Cabin,"Cabin Local",-apple-system,system-ui,BlinkMacSystemFont,sans-serif;
+}
+
+.cke_panel_list {
+	margin-bottom: 0;
+	padding-bottom: 3px;
+}
+
+.rich-text .inline-edit-content {
+	width: 100%;
+}
+
 .cke_editable h1, .cke_editable h2, .cke_editable h3, .cke_editable h4, .cke_editable h5, .cke_editable h6, .rich-text h1, .rich-text h2, .rich-text h3, .rich-text h4, .rich-text h5, .rich-text h6 {
 	font-weight: bold;
 	margin: 10px 0;
+	color: inherit;
 }
 
 .cke_editable h1, .rich-text h1 {
 	font-size: 2.2em;
+	padding: 0;
 }
 
 .cke_editable h2, .rich-text h2 {
@@ -125,10 +140,11 @@
 }
 
 .cke_editable td, .cke_editable th, .rich-text td, .rich-text th {
-	border: 1px solid #a6a6a6 !important;
+	border: 1px solid !important;
 	padding: 5px !important;
 }
 
 .cke_editable, .rich-text .inline-edit-content > div {
 	padding: 6px 10px;
+	outline: none;
 }

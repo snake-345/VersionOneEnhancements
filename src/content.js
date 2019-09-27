@@ -20,6 +20,10 @@ chrome.storage.sync.get(['options', 'baseUrl'], function(data) {
 			injectScript(chrome.extension.getURL('myWork.js'));
 		}
 
+		if (options.highlightId) {
+			injectStyle(chrome.extension.getURL('highlightId.css'));
+		}
+
 		if (options.showPullRequestInfo) {
 			injectScript(chrome.extension.getURL('showPullRequestInfo.js'));
 		}

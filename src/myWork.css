@@ -18,3 +18,24 @@
 .__returned {
 	background: #FFF2F2 !important;
 }
+
+.dark .__in-progress,
+.dark .__code-review,
+.dark .__acceptance-testing,
+.dark .__ready-to-test,
+.dark .__in-review {
+	background: #6b6b32 !important;
+}
+
+.dark .__completed,
+.dark .__pending-merge,
+.dark .__ready-to-release,
+.dark .__released,
+.dark .__resolved {
+	background: #30632b !important;
+}
+
+.dark .__blocked,
+.dark .__returned {
+	background: #503a3a !important;
+}

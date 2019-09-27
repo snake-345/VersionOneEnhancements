@@ -9,8 +9,10 @@ The extension that reduces your pain from using VersionOne and makes you happy.
   * Improved typography. Eye-devastating layout is no more.
     * Increase font-size. (You can configure it)
     * Add margins.
+  * Support dark theme
 * Important fields are now expanded by default.
 * Improved "My Work" page. Just added some colors for different statuses.
+* Highlight Story/Defect ID for easy distinguish story from defect
 * And you can disable any option in extension settings.
 
 ## How create defects.

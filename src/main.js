@@ -5,6 +5,7 @@
 	maxHeightWysiwyg: 0,
 	expand: true,
 	myWorkEnhancement: true,
+	highlightId: true,
 	showPullRequestInfo: true,
 };
 var captured = [];

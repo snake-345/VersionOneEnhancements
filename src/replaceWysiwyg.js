@@ -1,8 +1,11 @@
 (function () {
 	var _options = JSON.parse(document.querySelector('body').dataset.options);
 	var _oidToken, _uploadUrl, _contentsCss;
+	var _isDarkTheme = document.body.classList.contains('dark');
+	var _isEditorReplaced = false;
 
 	injectStyle(_options.baseUrl + 'replaceWysiwyg.css');
+	injectStyle(_options.baseUrl + 'replaceWysiwyg' + (_isDarkTheme ? 'Dark' : 'Light') + 'Theme.css');
 
 	window.addEventListener('load', function() {
 		injectDefaultFontSize(document.head);
@@ -13,6 +16,18 @@
 	document.addEventListener('voe.refresh', replaceEditor);
 
 	function replaceEditor() {
+		var toggleThemeBackup = V1Next.entryPoints.Admin.ToggleTheme;
+
+		V1Next.entryPoints.Admin.ToggleTheme = function(context) {
+			toggleThemeBackup(context);
+
+			document.head.querySelector('link[href*="replaceWysiwyg' + (_isDarkTheme ? 'Dark' : 'Light') + 'Theme.css"]').remove();
+			_isDarkTheme = !_isDarkTheme;
+			injectStyle(_options.baseUrl + 'replaceWysiwyg' + (_isDarkTheme ? 'Dark' : 'Light') + 'Theme.css');
+
+			if (_isEditorReplaced) { setTimeout(function() { window.location.reload(); }, 500); }
+		};
+
 		if (!window.tinyMCE || !tinyMCE.editors.length) return;
 
 		_oidToken = tinyMCE.settings.oidToken;
@@ -105,6 +120,8 @@
 				}
 			}());
 		}
+
+		_isEditorReplaced = true;
 	}
 
 	function ininInlineCKEditor(textarea) {
@@ -163,14 +180,15 @@
 				overrides: 'strike'
 			},
 			stylesSet: [
-				{name: 'Red text', element: 'span', styles: {'color': 'red'}},
-				{name: 'Blue text', element: 'span', styles: {'color': 'blue'}},
-				{name: 'Green text', element: 'span', styles: {'color': 'green'}},
-				{name: 'Yellow highlight', element: 'span', styles: {'background-color': 'yellow'}},
-				{name: 'Light green highlight', element: 'span', styles: {'background-color': 'lightgreen'}},
-				{name: 'Light blue highlight', element: 'span', styles: {'background-color': 'lightblue'}}
+				{name: 'Red text', element: 'span', attributes: {class: 'voe-red-color'}},
+				{name: 'Blue text', element: 'span', attributes: {class: 'voe-blue-color'}},
+				{name: 'Green text', element: 'span', attributes: {class: 'voe-green-color'}},
+				{name: 'Yellow highlight', element: 'span', attributes: {class: 'voe-yellow-highlight'}},
+				{name: 'Green highlight', element: 'span', attributes: {class: 'voe-green-highlight'}},
+				{name: 'Blue highlight', element: 'span', attributes: {class: 'voe-blue-highlight'}}
 			],
 			simpleuploads_inputname: 'image',
+			disallowedContent: '*{color}',
 			toolbarGroups: [
 				{name: 'clipboard', groups: ['clipboard', 'undo']},
 				{name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
@@ -189,7 +207,18 @@
 			removeButtons: 'Subscript,Superscript,addImage,Source,Blockquote,About,addFile',
 			on: on || {}
 		};
+
 		var sharedPanel, editingCheckbox, instance;
+
+		if (document.body.classList.contains('dark')) {
+			config.skin = 'moono-dark';
+		}
+
+		config.contentsCss = [
+			'https://fonts.googleapis.com/css?family=Cabin:400,400i,500,500i,600,600i,700,700i&display=swap',
+			_options.baseUrl + 'replaceWysiwyg.css',
+			_options.baseUrl + 'replaceWysiwyg' + (_isDarkTheme ? 'Dark' : 'Light') + 'Theme.css',
+		];
 
 		if (isInline) {
 			sharedPanel = addPlaceForSharedPanel(element.closest('.value'));
@@ -218,7 +247,6 @@
 				document.querySelector('#' + sharedPanel.id).parentNode.remove();
 			});
 		} else {
-			config.contentsCss = [_options.baseUrl + 'proximaNova.css', _options.baseUrl + 'replaceWysiwyg.css'];
 			instance = CKEDITOR.replace(element, config);
 			instance.on('instanceReady', function(e) {
 				injectDefaultFontSize(e.editor.document.getHead().$);

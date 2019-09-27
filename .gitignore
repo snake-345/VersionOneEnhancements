@@ -1,0 +1,7 @@
+# misc files
+.DS_Store
+.idea
+*.iml
+.settings
+.project
+.buildpath

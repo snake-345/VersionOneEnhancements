@@ -1,0 +1,44 @@
+.voe-inline-editor-checkbox__inner {
+	border-color: #d1d1d1;
+	background: #f8f8f8;
+}
+
+.cke_editable td, .cke_editable th, .rich-text td, .rich-text th {
+	border-color: #a6a6a6 !important;
+}
+
+.cke_editable .voe-red-color,
+.rich-text .voe-red-color,
+.voe-red-color {
+	color: #ff0000;
+}
+
+.cke_editable .voe-blue-color,
+.rich-text .voe-blue-color,
+.voe-blue-color {
+	color: #0000ff;
+}
+
+.cke_editable .voe-green-color,
+.rich-text .voe-green-color,
+.voe-green-color {
+	color: #00a700;
+}
+
+.cke_editable .voe-yellow-highlight,
+.rich-text .voe-yellow-highlight,
+.voe-yellow-highlight {
+	background: #ffff00;
+}
+
+.cke_editable .voe-green-highlight,
+.rich-text .voe-green-highlight,
+.voe-green-highlight {
+	background: #87ff87;
+}
+
+.cke_editable .voe-blue-highlight,
+.rich-text .voe-blue-highlight,
+.voe-blue-highlight {
+	background: #9bd5ff;
+}
