@@ -99,7 +99,8 @@ body.cke_editable {
 
 .dark .cke_dialog a,
 .dark .cke_dialog a:hover,
-.dark .cke_dialog label {
+.dark .cke_dialog label,
+.dark .cke_dialog_ui_input_text {
 	color: #000000;
 }
 
