@@ -11,6 +11,7 @@ The extension that reduces your pain from using VersionOne and makes you happy.
     * Add margins.
   * Support dark theme
 * Important fields are now expanded by default.
+* Load lazy assets immediately
 * Improved "My Work" page. Just added some colors for different statuses.
 * Highlight Story/Defect ID for easy distinguish story from defect
 * And you can disable any option in extension settings.
