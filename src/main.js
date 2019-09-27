@@ -4,6 +4,7 @@
 	minHeightWysiwyg: 200,
 	maxHeightWysiwyg: 0,
 	expand: true,
+	removeLazyLoading: true,
 	myWorkEnhancement: true,
 	highlightId: true,
 	showPullRequestInfo: true,

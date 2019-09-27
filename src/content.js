@@ -16,6 +16,10 @@ chrome.storage.sync.get(['options', 'baseUrl'], function(data) {
 			injectStyle(chrome.extension.getURL('expand.css'));
 		}
 
+		if (options.removeLazyLoading) {
+			injectScript(chrome.extension.getURL('removeLazyLoading.js'));
+		}
+
 		if (options.myWorkEnhancement) {
 			injectScript(chrome.extension.getURL('myWork.js'));
 		}
