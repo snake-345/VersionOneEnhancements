@@ -1,7 +1,7 @@
 (function () {
 	var _options = JSON.parse(document.querySelector('body').dataset.options);
 	var _oidToken, _uploadUrl, _contentsCss;
-	var _isDarkTheme = document.body.classList.contains('dark');
+	var _isDarkTheme = document.body.dataset.theme === 'dark';
 	var _isEditorReplaced = false;
 
 	injectStyle(_options.baseUrl + 'replaceWysiwyg.css');
@@ -210,7 +210,7 @@
 
 		var sharedPanel, editingCheckbox, instance;
 
-		if (document.body.classList.contains('dark')) {
+		if (document.body.dataset.theme === 'dark') {
 			config.skin = 'moono-dark';
 		}
 

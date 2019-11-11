@@ -8,11 +8,11 @@ body.cke_editable {
 	color: #e6f0f4;
 }
 
-.dark .cke_inner {
+[data-theme=dark] .cke_inner {
 	background: #14262d;
 }
 
-.dark .cke_panel {
+[data-theme=dark] .cke_panel {
 	border-color: #2b5363;
 	box-shadow: none;
 }
@@ -64,43 +64,43 @@ body.cke_editable {
 	border-color: #2b5363 !important;
 }
 
-.dark .cke_chrome {
+[data-theme=dark] .cke_chrome {
 	border-color: #2b5363;
 }
 
-.dark .cke_top {
+[data-theme=dark] .cke_top {
 	background: #14262d;
 	box-shadow: none;
 	border: 0;
 }
 
-.dark .cke_toolgroup,
-.dark .cke_combo_button {
+[data-theme=dark] .cke_toolgroup,
+[data-theme=dark] .cke_combo_button {
 	box-shadow: none;
 	background: #21404c;
 }
 
-.dark a.cke_button_off:hover,
-.dark a.cke_button_off:focus,
-.dark a.cke_button_off:active,
-.dark a.cke_button_disabled:hover,
-.dark a.cke_button_disabled:focus,
-.dark a.cke_button_disabled:active,
-.dark .cke_combo_off a.cke_combo_button:hover,
-.dark .cke_combo_off a.cke_combo_button:focus {
+[data-theme=dark] a.cke_button_off:hover,
+[data-theme=dark] a.cke_button_off:focus,
+[data-theme=dark] a.cke_button_off:active,
+[data-theme=dark] a.cke_button_disabled:hover,
+[data-theme=dark] a.cke_button_disabled:focus,
+[data-theme=dark] a.cke_button_disabled:active,
+[data-theme=dark] .cke_combo_off a.cke_combo_button:hover,
+[data-theme=dark] .cke_combo_off a.cke_combo_button:focus {
 	background: #2c5667;
 }
 
-.dark .cke_button_on,
-.dark .cke_combo_off a.cke_combo_button:active,
-.dark .cke_combo_on a.cke_combo_button {
+[data-theme=dark] .cke_button_on,
+[data-theme=dark] .cke_combo_off a.cke_combo_button:active,
+[data-theme=dark] .cke_combo_on a.cke_combo_button {
 	background: #21404c;
 }
 
-.dark .cke_dialog a,
-.dark .cke_dialog a:hover,
-.dark .cke_dialog label,
-.dark .cke_dialog_ui_input_text {
+[data-theme=dark] .cke_dialog a,
+[data-theme=dark] .cke_dialog a:hover,
+[data-theme=dark] .cke_dialog label,
+[data-theme=dark] .cke_dialog_ui_input_text {
 	color: #000000;
 }
 
