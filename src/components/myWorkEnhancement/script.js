@@ -1,7 +1,7 @@
 (function() {
 	var options = JSON.parse(document.querySelector('body').dataset.options);
 
-	injectStyle(options.baseUrl + 'myWork.css');
+	injectStyle(options.componentsUrl + 'myWorkEnhancement/styles.css');
 	makeEnhancement();
 	document.addEventListener('voe.completeHandler', makeEnhancement);
 

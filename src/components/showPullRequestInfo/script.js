@@ -13,7 +13,7 @@
 
 		if (!id || document.querySelector('.pull-requests')) { return; }
 
-		injectStyle(options.baseUrl + 'showPullRequestInfo.css');
+		injectStyle(options.componentsUrl + 'showPullRequestInfo/styles.css');
 
 		var pullRequests = document.createElement('div');
 		var hr = document.createElement('hr');

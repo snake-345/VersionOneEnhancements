@@ -4,8 +4,8 @@
 	var _isDarkTheme = document.body.dataset.theme === 'dark';
 	var _isEditorReplaced = false;
 
-	injectStyle(_options.baseUrl + 'replaceWysiwyg.css');
-	injectStyle(_options.baseUrl + 'replaceWysiwyg' + (_isDarkTheme ? 'Dark' : 'Light') + 'Theme.css');
+	injectStyle(_options.componentsUrl + 'replaceWysiwyg/styles.css');
+	injectStyle(_options.componentsUrl + 'replaceWysiwyg/' + (_isDarkTheme ? 'dark' : 'light') + 'Theme.css');
 
 	window.addEventListener('load', function() {
 		injectDefaultFontSize(document.head);
@@ -21,9 +21,9 @@
 		V1Next.entryPoints.Admin.ToggleTheme = function(context) {
 			toggleThemeBackup(context);
 
-			document.head.querySelector('link[href*="replaceWysiwyg' + (_isDarkTheme ? 'Dark' : 'Light') + 'Theme.css"]').remove();
+			document.head.querySelector('link[href*="replaceWysiwyg/' + (_isDarkTheme ? 'dark' : 'light') + 'Theme.css"]').remove();
 			_isDarkTheme = !_isDarkTheme;
-			injectStyle(_options.baseUrl + 'replaceWysiwyg' + (_isDarkTheme ? 'Dark' : 'Light') + 'Theme.css');
+			injectStyle(_options.baseUrl + 'replaceWysiwyg/' + (_isDarkTheme ? 'dark' : 'light') + 'Theme.css');
 
 			if (_isEditorReplaced) { setTimeout(function() { window.location.reload(); }, 500); }
 		};

@@ -68,7 +68,7 @@ function sendCapture() {
 }
 
 function openEdit() {
-	chrome.tabs.create({url: 'edit.html'});
+	chrome.tabs.create({url: 'storyEditPage/index.html'});
 }
 
 function openDefectEditing(event) {
