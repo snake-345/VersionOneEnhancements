@@ -70,4 +70,27 @@
 			backupFunc(a, b);
 		}
 	}
+
+	(function () {
+		var backupFunc = V1.Gadgets.Grid.Initialize;
+
+		V1.Gadgets.Grid.Initialize = function() {
+			backupFunc.apply(this, arguments);
+			document.dispatchEvent(new Event('voe.gridRendered'));
+		}
+	}());
+
+	// Use it if you wanna find place which you can monkey patched
+	function logAllFunctionCallingInObject(obj) {
+		Object.keys(obj).forEach(function(key) {
+			if (typeof obj[key] === 'function') {
+				var backupFunc = obj[key];
+
+				obj[key] = function() {
+					console.log('Call ' + key);
+					backupFunc.apply(this, arguments);
+				}
+			}
+		});
+	}
 })();

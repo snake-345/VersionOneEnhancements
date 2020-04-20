@@ -17,7 +17,7 @@ function injectStyle(url, callback) {
 	style.setAttribute('href', url);
 
 	if (callback) {
-		style.onload(callback);
+		style.onload = callback;
 	}
 
 	document.head.appendChild(style);

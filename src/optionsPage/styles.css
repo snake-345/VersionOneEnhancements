@@ -1,0 +1,80 @@
+body {
+	font-size: 15px;
+}
+
+.disclaimer {
+	font-size: 14px;
+	margin-top: 10px;
+}
+
+.columns {
+	display: flex;
+	justify-content: space-between;
+}
+
+.example-of-data {
+	flex-grow: 0;
+}
+
+.template-example {
+	margin-top: 15px;
+}
+
+.template-example .columns {
+	justify-content: flex-start;
+}
+
+.template-example .column + .column {
+	margin-left: 20px;
+}
+
+.template-example pre {
+	margin-top: 5px;
+}
+
+.templates {
+	flex-grow: 1;
+	margin-left: 20px;
+}
+
+.heading {
+	display: block;
+	margin-bottom: 5px;
+	margin-top: 10px;
+}
+
+.template-field + .template-field {
+	margin-top: 40px;
+}
+
+.template-field label {
+	font-weight: bold;
+}
+
+.template-field-textarea {
+	font-family: monospace;
+}
+
+.template-field-output {
+	margin-top: 0;
+}
+
+textarea {
+	width: 100%;
+	min-width: 100%;
+	max-width: 100%;
+	font-size: 15px;
+}
+
+pre {
+	padding: 10px;
+	border: 1px solid #ccc;
+	tab-size: 4;
+}
+
+textarea,
+pre {
+	-moz-tab-size : 4;
+	-o-tab-size : 4;
+	tab-size : 4;
+}

@@ -8,6 +8,35 @@
 	myWorkEnhancement: true,
 	highlightId: true,
 	showPullRequestInfo: true,
+	showCopyListOfStories: true,
+	templateForRelease: '<% assets.forEach(asset => { _%>\n<%- asset.name %>\t<%- asset.link %>\t<%- team %>\tNo\n<% }); %>',
+	templateForReview: '<% var points = assets.reduce((sum, asset) => sum + asset.points , 0) _%>\n' +
+		'<% var doneStatuses = [\'Pending Merge\', \'Ready to Release\', \'Released\']; _%>\n' +
+		'<% var donePoints = assets.reduce((sum, asset) => doneStatuses.includes(asset.status) ? sum + asset.points : sum, 0) _%>\n' +
+		'<% var splittedPoints = points - donePoints _%>\n' +
+		'<% var doneAssets = assets.filter(asset => doneStatuses.includes(asset.status)); _%>\n' +
+		'<% var splittedAssets = assets.filter(asset => !doneStatuses.includes(asset.status)); _%>\n' +
+		'Done:\n' +
+		'<% doneAssets.forEach(function(asset) { _%>\n' +
+		'<%= asset.type === \'defect\' ? \'[D]\' : \'\' %><%- asset.name %>\n' +
+		'<% }); _%>\n' +
+		'\n' +
+		'Splitted:\n' +
+		'<% splittedAssets.forEach(function(asset) { _%>\n' +
+		'<%= asset.type === \'defect\' ? \'[D]\' : \'\' %><%- asset.name %>\n' +
+		'<% }); _%>\n' +
+		'\n' +
+		'Planned:\n' +
+		'<%= assets.length %> Stories\n' +
+		'<%= points %> pts\n' +
+		'\n' +
+		'Split:\n' +
+		'<%= splittedAssets.length %> Stories\n' +
+		'<%= splittedPoints %> pts\n' +
+		'\n' +
+		'Completed:\n' +
+		'<%= doneAssets.length %> Stories\n' +
+		'<%= donePoints %> pts',
 };
 var captured = [];
 

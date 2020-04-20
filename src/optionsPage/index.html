@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>VersionOne Enhancements</title>
+	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -20,6 +21,201 @@
 		<div class="input">
 			<label for="maxHeightWysiwyg">Max height: </label><input type="number" name="maxHeightWysiwyg" id="maxHeightWysiwyg">
 			Zero (0) means that the maximum height is not limited and the editor will expand infinitely.
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Copy list of stories</legend>
+		<div class="input">
+			<input type="checkbox" name="showCopyListOfStories" id="showCopyListOfStories"><label for="showCopyListOfStories">Enable</label>
+		</div>
+		<div class="disclaimer">
+			This will works on "Team Room =&gt; List View" and "Team =&gt; Detail Tracking"<br>
+			This plugin will collect only information which already exists on the page.<br>
+			So if you didn't configure showing priority(for example) you will get empty string in template when will try use asset.priority.<br>
+			Also if you have more than one page of stories you should configure your view for showing all stories in one page(maybe sometime I will fix it, if you really wanna that)<br><br>
+			This plugin using EJS for templating, so you can learn how it works here: <a href="https://ejs.co/" target="_blank">EJS doc</a><br>
+			<a href="#" class="show-template-examples"><strong>Show template examples</strong></a><br>
+			<div class="template-examples" style="display: none">
+				<div class="template-example">
+					Show stories and defects separately:
+					<div class="columns">
+						<div class="column">
+							Template:
+<pre class="template-example-input">
+Stories:
+<% assets
+	.filter(asset => asset.type === 'story')
+	.forEach(function(asset) { _%>
+<%- asset.name %>	<%= asset.link %>
+<% }); _%>
+
+Defects:
+<% assets
+	.filter(asset => asset.type === 'defect')
+	.forEach(function(asset) { _%>
+<%- asset.name %>	<%= asset.link %>
+<% }); _%>
+</pre>
+						</div>
+						<div class="column">
+							Output:
+							<pre class="template-example-output"></pre>
+						</div>
+					</div>
+				</div>
+				<div class="template-example">
+					Sort results by priority:
+					<div class="columns">
+						<div class="column">
+							Template:
+<pre class="template-example-input">
+<% assets
+	.sort((a, b) => {
+		if (a.priority < b.priority) { return -1; }
+		if (a.priority > b.priority) { return 1; }
+		return 0;
+	})
+	.forEach(function(asset) { _%>
+<%- asset.name %>	<%- asset.link %>	<%- asset.priority %>
+<% }); _%>
+</pre>
+						</div>
+						<div class="column">
+							Output:
+							<pre class="template-example-output"></pre>
+						</div>
+					</div>
+				</div>
+				<div class="template-example">
+					Calculate points:
+					<div class="columns">
+						<div class="column">
+							Template:
+<pre class="template-example-input">
+<% var points = assets.reduce((sum, asset) => sum + asset.points , 0) _%>
+<% var doneStatuses = ['Pending Merge', 'Ready to Release', 'Released']; _%>
+<% var donePoints = assets.reduce((sum, asset) => doneStatuses.includes(asset.status) ? sum + asset.points : sum, 0) _%>
+<% var splittedPoints = points - donePoints _%>
+Points:     <%= points %>
+Done:       <%= donePoints %>
+Splitted:   <%= splittedPoints %>
+</pre>
+						</div>
+						<div class="column">
+							Output:
+							<pre class="template-example-output"></pre>
+						</div>
+					</div>
+				</div>
+				<div class="template-example">
+					Output assets by epic:
+					<div class="columns">
+						<div class="column">
+							Template:
+<pre class="template-example-input">
+<%
+	var assetsByEpic = {};
+	assets.forEach(asset => {
+		var epic = asset.epic || 'No epic';
+
+		if (!assetsByEpic[epic]) { assetsByEpic[epic] = []; }
+
+		assetsByEpic[epic].push(asset);
+	});
+_%>
+<% Object.keys(assetsByEpic).forEach(epic => { _%>
+<%- epic %>:
+	<%_ assetsByEpic[epic].forEach(asset => { _%>
+	<%- asset.name %>
+	<%_ }); %>
+<% }); _%>
+</pre>
+						</div>
+						<div class="column">
+							Output:
+							<pre class="template-example-output"></pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column example-of-data">
+<pre>
+// Example of data which you will get
+{
+	team: 'Team Name',
+	assets: [
+		{
+			id: 'B-66699',
+			type: 'story',
+			name: 'Name of Story',
+			link: 'https://google.com',
+			owners: ['Owner 1', 'Owner 2'],
+			status: 'Pending Merge',
+			points: 3,
+			priority: 'P1',
+			epic: 'Epic Name',
+		},
+		{
+			id: 'D-66699',
+			type: 'defect',
+			name: 'Name of Defect',
+			link: 'https://google.com',
+			owners: ['Owner 1', 'Owner 2'],
+			status: 'Code Review',
+			points: 5,
+			priority: 'P2',
+			epic: 'Another Epic Name',
+		},
+		{
+			id: 'B-99666',
+			type: 'story',
+			name: 'Name of Story',
+			link: 'https://google.com',
+			owners: ['Owner 1', 'Owner 2'],
+			status: 'Pending Merge',
+			points: 3,
+			priority: 'P1',
+			epic: 'Another Epic Name',
+		},
+		{
+			id: 'D-99666',
+			type: 'defect',
+			name: 'Name of Defect',
+			link: 'https://google.com',
+			owners: ['Owner 1', 'Owner 2'],
+			status: 'Code Review',
+			points: 5,
+			priority: 'P2',
+			epic: 'Epic Name',
+		},
+	],
+}
+</pre>
+			</div>
+			<div class="column templates">
+				<div class="template-field">
+					<label class="heading" for="templateForRelease">Template for release:</label>
+					<div class="input">
+						<textarea class="template-field-textarea" name="templateForRelease" id="templateForRelease" cols="120" rows="10"></textarea>
+					</div>
+					<div class="heading">
+						Output example:
+					</div>
+					<pre class="template-field-output"></pre>
+				</div>
+				<div class="template-field">
+					<label class="heading" for="templateForReview">Template for review:</label>
+					<div class="input">
+						<textarea class="template-field-textarea" name="templateForReview" id="templateForReview" cols="120" rows="10"></textarea>
+					</div>
+					<div class="heading">
+						Output example:
+					</div>
+					<pre class="template-field-output"></pre>
+				</div>
+			</div>
 		</div>
 	</fieldset>
 	<fieldset>
@@ -44,6 +240,7 @@
 	<div id="status"></div>
 	<button id="save">Save</button>
 
+	<script type="text/javascript" src="../dependencies/ejs/ejs.min.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

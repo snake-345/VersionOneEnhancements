@@ -32,5 +32,9 @@ chrome.storage.sync.get(['options', 'baseUrl'], function(data) {
 		if (options.showPullRequestInfo) {
 			injectScript(chrome.extension.getURL('components/showPullRequestInfo/script.js'));
 		}
+
+		if (options.showCopyListOfStories) {
+			injectScript(chrome.extension.getURL('components/copyListOfStories/script.js'))
+		}
 	});
 });

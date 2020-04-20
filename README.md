@@ -14,6 +14,7 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 * Load lazy assets immediately
 * Improved "My Work" page. Just added some colors for different statuses.
 * Highlight Story/Defect ID for easy distinguish story from defect
+* Copy list of stories for release or review
 * And you can disable any option in extension settings.
 
 ## How create defects.
