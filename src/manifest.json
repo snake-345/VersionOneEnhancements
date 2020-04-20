@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "VersionOneEnhancements",
     "description": "The extension that reduces your pain from using VersionOne and makes you happy.",
-    "version": "2.3.0",
+    "version": "2.3.4",
     "applications": {
         "gecko": {
             "id": "{38BCC9DA-47E4-4F99-854F-50A634111554}"
@@ -47,16 +47,13 @@
         "persistent": true
     },
     "homepage_url": "https://github.com/snake-345/VersionOneEnhancements",
-
-    "options_page": "optionsPage/index.html",
+    "options_ui": {
+        "page": "optionsPage/index.html"
+    },
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "permissions": [
         "tabs",
-        "contextMenus",
-        "webNavigation",
         "<all_urls>",
-        "webRequest",
-        "idle",
         "storage"
     ]
 }

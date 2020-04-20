@@ -1,19 +1,11 @@
 body {
 	font-size: 15px;
+	min-width: 1000px;
 }
 
 .disclaimer {
 	font-size: 14px;
 	margin-top: 10px;
-}
-
-.columns {
-	display: flex;
-	justify-content: space-between;
-}
-
-.example-of-data {
-	flex-grow: 0;
 }
 
 .template-example {
@@ -24,17 +16,8 @@ body {
 	justify-content: flex-start;
 }
 
-.template-example .column + .column {
-	margin-left: 20px;
-}
-
 .template-example pre {
 	margin-top: 5px;
-}
-
-.templates {
-	flex-grow: 1;
-	margin-left: 20px;
 }
 
 .heading {

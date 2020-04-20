@@ -3,6 +3,7 @@
 	var _options = JSON.parse(document.querySelector('body').dataset.options);
 	var EJS_URL = _options.baseUrl + 'dependencies/ejs/ejs.min.js';
 
+	_init();
 	window.addEventListener('load', _init);
 	document.addEventListener('voe.gridRendered', _init);
 
@@ -19,6 +20,8 @@
 	}
 
 	function _appendCopyButtons() {
+		if (document.querySelector('.voe-btn')) { return; }
+
 		var filters = _scope.querySelector('.filters');
 		var copyForReleaseBtn = _createButton('Copy For Release');
 		var copyForReviewBtn = _createButton('Copy For Review');
