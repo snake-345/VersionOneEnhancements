@@ -59,7 +59,7 @@
 			return asset;
 		});
 		var template = _options['templateFor' + _capitalizeFirstLetter(type)];
-
+console.log(assets);
 		if (!document.querySelector('script[src="' + EJS_URL + '"]')) {
 			injectScript(EJS_URL, function() {
 				_copyToClipboard(_generateReport({ team: team, assets: assets }, template));
@@ -90,7 +90,8 @@
 	function _parseAsset(row) {
 		var assetNameLink = row.querySelector('.asset-name-link');
 		var assetNumberLink = row.querySelector('.asset-number-link');
-		var status = row.querySelector('.dropdown[value*="StoryStatus"]');
+		var owners = _findByName('Owner', row);
+		var status = _findByName('Status', row);
 		var points = _findByName('Estimate Pts.', row);
 		var priority = _findByName('Priority', row);
 		var epic = _findByName('Epic', row);
@@ -100,20 +101,34 @@
 			type: row.getAttribute('_v1_type').toLowerCase(),
 			name: assetNameLink ? assetNameLink.innerText : '',
 			link: assetNameLink ? document.location.origin + assetNameLink.getAttribute('href') : '',
-			owners: _parseOwners(row.querySelector('[_v1_updater*=".Owners"]')),
-			status: status ? status.querySelector('.ddtext').innerText : '',
+			owners: owners ? _parseOwners(owners) : [],
+			status: status ? _parseStatus(status) : '',
 			points: points ? parseFloat(points.innerText) : null,
 			priority: priority ? priority.innerText.trim() : '',
 			epic: epic ? epic.innerText : '',
 		}
 	}
 
-	function _parseOwners(ownersElement) {
-		var owners = ownersElement ? ownersElement.parentNode.querySelectorAll('.item') : [];
+	function _parseStatus(statusElement) {
+		if (statusElement.querySelector('.dropdown')) {
+			return statusElement.querySelector('.ddtext').innerText.trim();
+		}
 
-		return Array.prototype.map.call(owners, function(owner) {
-			return owner.innerText;
-		});
+		return statusElement.innerText.trim();
+	}
+
+	function _parseOwners(ownersElement) {
+		var owners = [];
+
+		if (ownersElement.querySelector('.items')) {
+			owners = Array.prototype.map.call(ownersElement.querySelectorAll('.item'), function(owner) {
+				return owner.innerText;
+			});
+		} else if (ownersElement.innerText.trim()) {
+			owners = ownersElement.innerText.split(',').map(v => v.trim());
+		}
+
+		return owners;
 	}
 
 	function _findByName(name, row) {

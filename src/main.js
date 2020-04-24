@@ -11,7 +11,7 @@
 	showCopyListOfStories: true,
 	templateForRelease: '<% assets.forEach(asset => { _%>\n<%- asset.name %>\t<%- asset.link %>\t<%- team %>\tNo\n<% }); %>',
 	templateForReview: '<% var points = assets.reduce((sum, asset) => sum + asset.points , 0) _%>\n' +
-		'<% var doneStatuses = [\'Pending Merge\', \'Ready to Release\', \'Released\']; _%>\n' +
+		'<% var doneStatuses = [\'Pending Merge\', \'Ready to Release\', \'Released\', \'Resolved\']; _%>\n' +
 		'<% var donePoints = assets.reduce((sum, asset) => doneStatuses.includes(asset.status) ? sum + asset.points : sum, 0) _%>\n' +
 		'<% var splittedPoints = points - donePoints _%>\n' +
 		'<% var doneAssets = assets.filter(asset => doneStatuses.includes(asset.status)); _%>\n' +
