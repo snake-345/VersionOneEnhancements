@@ -1,0 +1,18 @@
+.voe-copy-to-clipboard {
+	transition: all .15s ease;
+	padding: 4px 8px;
+	margin-left: auto;
+}
+
+.voe-copy-to-clipboard:hover {
+	transform: scale(1.2);
+}
+
+.voe-copy-to-clipboard svg {
+	width: 18px;
+	fill: #07496B;
+}
+
+body[data-theme=dark] .voe-copy-to-clipboard svg {
+	fill: #fff;
+}

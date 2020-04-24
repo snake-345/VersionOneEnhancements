@@ -68,6 +68,7 @@
 			myWorkEnhancement: document.getElementById('myWorkEnhancement').checked,
 			highlightId: document.getElementById('highlightId').checked,
 			showPullRequestInfo: document.getElementById('showPullRequestInfo').checked,
+			showCopyLinkToClipboard: document.getElementById('showCopyLinkToClipboard').checked,
 			showCopyListOfStories: document.getElementById('showCopyListOfStories').checked,
 			templateForRelease: document.getElementById('templateForRelease').value,
 			templateForReview: document.getElementById('templateForReview').value,
@@ -94,6 +95,7 @@
 			document.getElementById('myWorkEnhancement').checked = data.options.myWorkEnhancement;
 			document.getElementById('highlightId').checked = data.options.highlightId;
 			document.getElementById('showPullRequestInfo').checked = data.options.showPullRequestInfo;
+			document.getElementById('showCopyLinkToClipboard').checked = data.options.showCopyLinkToClipboard;
 			document.getElementById('showCopyListOfStories').checked = data.options.showCopyListOfStories;
 			document.getElementById('templateForRelease').value = data.options.templateForRelease;
 			document.getElementById('templateForRelease').dispatchEvent(new Event('keyup'));

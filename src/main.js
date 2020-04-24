@@ -8,6 +8,7 @@
 	myWorkEnhancement: true,
 	highlightId: true,
 	showPullRequestInfo: true,
+	showCopyLinkToClipboard: true,
 	showCopyListOfStories: true,
 	templateForRelease: '<% assets.forEach(asset => { _%>\n<%- asset.name %>\t<%- asset.link %>\t<%- team %>\tNo\n<% }); %>',
 	templateForReview: '<% var points = assets.reduce((sum, asset) => sum + asset.points , 0) _%>\n' +

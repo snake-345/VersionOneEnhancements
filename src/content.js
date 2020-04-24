@@ -33,6 +33,10 @@ chrome.storage.sync.get(['options', 'baseUrl'], function(data) {
 			injectScript(chrome.extension.getURL('components/showPullRequestInfo/script.js'));
 		}
 
+		if (options.showCopyLinkToClipboard) {
+			injectScript(chrome.extension.getURL('components/copyLinkToClipboard/script.js'));
+		}
+
 		if (options.showCopyListOfStories) {
 			injectScript(chrome.extension.getURL('components/copyListOfStories/script.js'))
 		}

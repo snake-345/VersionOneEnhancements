@@ -59,7 +59,7 @@
 			return asset;
 		});
 		var template = _options['templateFor' + _capitalizeFirstLetter(type)];
-console.log(assets);
+
 		if (!document.querySelector('script[src="' + EJS_URL + '"]')) {
 			injectScript(EJS_URL, function() {
 				_copyToClipboard(_generateReport({ team: team, assets: assets }, template));
@@ -180,54 +180,3 @@ console.log(assets);
 		document.body.removeChild(element);
 	}
 }());
-
-
-function createElements() {
-	var selectIsPresent = document.getElementById('team_dealersocket');
-	if (selectIsPresent) {
-		return;
-	}
-	var teams = ['Lambda', 'Zeta', 'IO', 'X3', 'Shark', 'Star', 'Caramba', 'Infra', 'System Team'];
-
-
-	document.getElementById('copy_stories_for_release').onclick = function() {
-		var team = document.getElementById('team_dealersocket').value;
-		var el = document.createElement('textarea');
-		var stories = "";
-		var storiesElement = document.getElementsByClassName('asset-name-link');
-		for (var i = 0; i < storiesElement.length; i++) {
-			stories += storiesElement[i].text + "\thttps://www8.v1host.com" + storiesElement[i].getAttribute('href') + "\t" + team + "\tNo" + "\n"
-		}
-		console.log(stories);
-
-		el.value = stories;
-		el.setAttribute('readonly', '');
-		el.style = {position: 'absolute', left: '-9999px'};
-		document.body.appendChild(el);
-		el.select();
-		document.execCommand('copy');
-		document.body.removeChild(el);
-	}
-
-	document.getElementById('copy_stories_for_review').onclick = function() {
-		var el = document.createElement('textarea');
-		var stories = "";
-		var storiesElement = document.getElementsByClassName('asset-name-link');
-		for (var i = 0; i < storiesElement.length; i++) {
-			stories += storiesElement[i].text + "\t" + "\n"
-		}
-		console.log(stories);
-
-		el.value = stories;
-		el.setAttribute('readonly', '');
-		el.style = {position: 'absolute', left: '-9999px'};
-		document.body.appendChild(el);
-		el.select();
-		document.execCommand('copy');
-		document.body.removeChild(el);
-	}
-
-	document.getElementsByClassName('btn-apply').onclick = function() {
-		createElements();
-	}
-}
