@@ -15,6 +15,7 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 * Improved "My Work" page. Just added some colors for different statuses.
 * Highlight Story/Defect ID for easy distinguish story from defect
 * Copy list of stories for release or review
+* Copy human readable link to story
 * And you can disable any option in extension settings.
 
 ## How create defects.
