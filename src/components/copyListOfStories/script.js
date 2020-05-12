@@ -8,7 +8,7 @@
 	document.addEventListener('voe.gridRendered', _init);
 
 	function _init() {
-		_scope = document.querySelector('.IterationTracking_DetailTracking_Grid, .TeamRoom_ListView');
+		_scope = document.querySelector('.IterationTracking_DetailTracking_Grid, .TeamRoom_ListView, .WorkitemPlanning_TaskTestList_Grid');
 
 		if (!_scope) { return; }
 
