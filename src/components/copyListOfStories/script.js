@@ -1,5 +1,6 @@
 (function () {
 	var _scope = null;
+	
 	var _options = JSON.parse(document.querySelector('body').dataset.options);
 	var EJS_URL = _options.baseUrl + 'dependencies/ejs/ejs.min.js';
 
@@ -8,18 +9,29 @@
 	document.addEventListener('voe.gridRendered', _init);
 
 	function _init() {
-		_scope = document.querySelector('.IterationTracking_DetailTracking_Grid, .TeamRoom_ListView, .WorkitemPlanning_TaskTestList_Grid');
+		_scope = document.querySelector('.IterationTracking_DetailTracking_Grid, .TeamRoom_ListView');
+		if (_scope) {
 
-		if (!_scope) { return; }
+			if (!document.querySelector('link[href*="copyListOfStories/styles.css"]')) {
+				injectStyle(_options.componentsUrl + 'copyListOfStories/styles.css', _appendTeamsCopyButtons);
+			} else {
+				_appendTeamsCopyButtons();
+			}
+			return
+		}
 
-		if (!document.querySelector('link[href*="copyListOfStories/styles.css"]')) {
-			injectStyle(_options.componentsUrl + 'copyListOfStories/styles.css', _appendCopyButtons);
-		} else {
-			_appendCopyButtons();
+		_scope = document.querySelector('.WorkitemPlanning_TaskTestList_Grid');
+		if (_scope) {
+			if (!document.querySelector('link[href*="copyListOfStories/styles.css"]')) {
+				injectStyle(_options.componentsUrl + 'copyListOfStories/styles.css', _appendBacklogCopyButtons);
+			} else {
+				_appendBacklogCopyButtons();
+			}
+			return
 		}
 	}
 
-	function _appendCopyButtons() {
+	function _appendTeamsCopyButtons() {
 		if (document.querySelector('.voe-btn')) { return; }
 
 		var filters = _scope.querySelector('.filters');
@@ -40,6 +52,21 @@
 			event.preventDefault();
 		});
 	}
+	
+	function _appendBacklogCopyButtons() {
+		if (document.querySelector('.voe-btn')) { return; }
+
+		var filters = _scope.querySelector('.filters');
+		var copyBacklogBtn = _createButton('Copy Backlog');
+
+		filters.appendChild(copyBacklogBtn);
+
+		copyBacklogBtn.addEventListener('click', function(event) {
+			_handleButton('backlog');
+			event.preventDefault();
+		});
+		
+	}
 
 	function _createButton(text) {
 		var button = document.createElement('div');
@@ -59,7 +86,6 @@
 			return asset;
 		});
 		var template = _options['templateFor' + _capitalizeFirstLetter(type)];
-
 		if (!document.querySelector('script[src="' + EJS_URL + '"]')) {
 			injectScript(EJS_URL, function() {
 				_copyToClipboard(_generateReport({ team: team, assets: assets }, template));
