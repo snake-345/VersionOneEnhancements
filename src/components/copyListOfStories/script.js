@@ -9,25 +9,14 @@
 	document.addEventListener('voe.gridRendered', _init);
 
 	function _init() {
-		_scope = document.querySelector('.IterationTracking_DetailTracking_Grid, .TeamRoom_ListView');
-		if (_scope) {
+		_scope = document.querySelector('.IterationTracking_DetailTracking_Grid, .TeamRoom_ListView, .WorkitemPlanning_TaskTestList_Grid');
+		if (!_scope) { return; }
 
-			if (!document.querySelector('link[href*="copyListOfStories/styles.css"]')) {
-				injectStyle(_options.componentsUrl + 'copyListOfStories/styles.css', _appendTeamsCopyButtons);
-			} else {
-				_appendTeamsCopyButtons();
-			}
-			return
-		}
-
-		_scope = document.querySelector('.WorkitemPlanning_TaskTestList_Grid');
-		if (_scope) {
-			if (!document.querySelector('link[href*="copyListOfStories/styles.css"]')) {
-				injectStyle(_options.componentsUrl + 'copyListOfStories/styles.css', _appendBacklogCopyButtons);
-			} else {
-				_appendBacklogCopyButtons();
-			}
-			return
+		var appendButtons = _scope.classList.contains('WorkitemPlanning_TaskTestList_Grid') ? _appendBacklogCopyButtons : _appendTeamsCopyButtons
+		if (!document.querySelector('link[href*="copyListOfStories/styles.css"]')) {
+			injectStyle(_options.componentsUrl + 'copyListOfStories/styles.css', appendButtons);
+		} else {
+			appendButtons();
 		}
 	}
 
