@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "VersionOneEnhancements",
     "description": "The extension that reduces your pain from using VersionOne and makes you happy.",
-    "version": "2.3.7",
+    "version": "2.3.8",
     "applications": {
         "gecko": {
             "id": "{38BCC9DA-47E4-4F99-854F-50A634111554}"
