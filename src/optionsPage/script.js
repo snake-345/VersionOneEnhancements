@@ -72,6 +72,7 @@
 			showCopyListOfStories: document.getElementById('showCopyListOfStories').checked,
 			templateForRelease: document.getElementById('templateForRelease').value,
 			templateForReview: document.getElementById('templateForReview').value,
+			templateForBacklog: document.getElementById('templateForBacklog').value,
 		};
 
 		chrome.storage.sync.set({ options: options });
@@ -101,6 +102,8 @@
 			document.getElementById('templateForRelease').dispatchEvent(new Event('keyup'));
 			document.getElementById('templateForReview').value = data.options.templateForReview;
 			document.getElementById('templateForReview').dispatchEvent(new Event('keyup'));
+			document.getElementById('templateForBacklog').value = data.options.templateForBacklog;
+			document.getElementById('templateForBacklog').dispatchEvent(new Event('keyup'));
 		});
 	}
 

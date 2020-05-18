@@ -38,6 +38,7 @@
 		'Completed:\n' +
 		'<%= doneAssets.length %> Stories\n' +
 		'<%= donePoints %> pts',
+	templateForBacklog: '<% assets.forEach(asset => { _%>\n<%- asset.name %>\t<%- asset.link %>\n<% }); %>',
 };
 var captured = [];
 

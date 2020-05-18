@@ -35,4 +35,4 @@ The extension that reduces your pain from using VersionOne and makes you happy.
 Safari guys, sorry. I deleted safari version and will not support it. 
 
 ## If you like this extension
-You can click on star on GitHub or just send "Hustle card" [here](https://dealersocket.com/hustle) for epelmenev@dealersocket.com
+You can click on star on GitHub or just send "Hustle card" [here](https://dealersocket.youearnedit.com/users/5d0d25bcc57e5303b2be7363)
