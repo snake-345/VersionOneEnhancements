@@ -685,7 +685,7 @@
 		fetch('https://www8.v1host.com/DealerSocket/rest-1.v1/Data/Scope?sel=Name,Parent&where=AssetState="64"&Accept=application/json', {
 			method: 'GET',
 			headers: {
-				'Authorization': 'Bearer 1.0yzDvxnaLXDakgISQ46GqST0pj4='
+				'Authorization': ''
 			}
 		}).then(function(response) {
 			return response.json();
