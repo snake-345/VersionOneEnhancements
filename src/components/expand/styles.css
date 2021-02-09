@@ -2,7 +2,8 @@
 	display: none !important;
 }
 
-.collapsed-text {
+.collapsed-text,
+.asset-info .expandable-text .collapsed-text>.rich-text.inline-edit {
 	max-height: none !important;
 	overflow: visible !important;
 }
