@@ -57,7 +57,10 @@
 					return element.innerHTML;
 				},
 				load: function () {},
-				remove: function() {}
+				remove: function() {},
+				save: function() {},
+				isNotDirty: false,
+				isDirty: function() { return !this.isNotDirty; },
 			};
 		};
 	}
