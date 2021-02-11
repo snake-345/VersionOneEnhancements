@@ -16,19 +16,19 @@
 		injectStyle(options.componentsUrl + 'showPullRequestInfo/styles.css');
 
 		var pullRequests = document.createElement('div');
-		var hr = document.createElement('hr');
+		var hr = document.createElement('div');
 
 		pullRequests.classList.add('pull-requests');
-		hr.classList.add('dashed-narrow');
+		hr.classList.add('expander-divider');
 		hr.style = 'width: 100%;';
 		pullRequests.innerHTML = `
 			<div class="pull-requests__title select_12">Pull requests:</div>
 			<div style="background-image: url(https://www8.v1host.com/s/19.0.3.29/css/images/svg/loading-spin-888.svg); background-size: 16px 16px; width: 16px; height: 16px;"></div>`;
 
-		var customFields = document.querySelector('.asset-info .custom-fields');
+		var expanderDivider = document.querySelector('.asset-info .expander-divider');
 
-		customFields.parentNode.insertBefore(hr, customFields);
-		customFields.parentNode.insertBefore(pullRequests, customFields);
+		expanderDivider.parentNode.insertBefore(hr, expanderDivider);
+		expanderDivider.parentNode.insertBefore(pullRequests, expanderDivider);
 
 		_getPullRequests(id.innerText.trim())
 			.then(function(data) {
