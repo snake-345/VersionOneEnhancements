@@ -1,3 +1,6 @@
+# Deprecated
+This extension is not supporting anymore, because company where I working no longer using VersionOne. Feel free to fork this and make any changes you want.
+
 # VersionOneEnhancements
 The extension that reduces your pain from using VersionOne and makes you happy.
 
